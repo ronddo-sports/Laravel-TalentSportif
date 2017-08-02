@@ -1,0 +1,20 @@
+ {
+  "fields": [
+    {"name": "type", "type": "select", "options": ["centre", "club", "association", "fondation"]},
+    {"name": "institution", "type": "string"},
+    {"name": "user_institution_id", "type": "integer#unsigned"},
+    {"name": "user_id", "type": "integer#unsigned"}
+
+  ],
+   "foreign_keys": [
+    {"column": "user_institution_id", "references": "id", "on": "user_institutions", "onDelete": "cascade"},
+    {"column": "user_id", "references": "id", "on": "users", "onDelete": "cascade"}
+  ],
+  "relationships": [
+    {"name": "user", "type": "belongsTo", "class": "App\\Model\\User"},
+    {"name": "institution", "type": "belongsTo", "class": "App\\Model\\UserInstitution"}
+  ],
+  "validations": [
+    {"field": "type", "rules": "required"}
+  ]
+}

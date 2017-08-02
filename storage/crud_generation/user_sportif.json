@@ -1,0 +1,23 @@
+{
+  "fields": [
+    { "name": "category", "type": "string" },
+    { "name": "club_actuel", "type": "string" },
+    { "name": "poid", "type": "float#unsigned" },
+    { "name": "taille", "type": "float#unsigned" },
+    { "name": "poste", "type": "string" },
+    { "name": "user_id", "type": "integer#unsigned" },
+    { "name": "user_manager_id", "type": "integer#unsigned" },
+    { "name": "user_group_id", "type": "integer#unsigned" }
+  ],
+  "foreign_keys": [
+    { "column": "user_id", "references": "id", "on": "users", "onDelete": "cascade"},
+    { "column": "user_manager_id", "references": "id", "on": "user_managers", "onDelete": "cascade"},
+    { "column": "user_group_id", "references": "id", "on": "user_groups", "onDelete": "cascade"}
+  ],
+  "relationships": [
+    { "name": "user", "type": "belongsTo", "class": "App\\Model\\User"},
+    { "name": "manager", "type": "belongsTo", "class": "App\\Model\\UserManager"},
+    { "name": "group", "type": "belongsTo", "class": "App\\Model\\UserGroup"}
+  ],
+  "validations": []
+}

@@ -1,0 +1,13 @@
+ {
+  "fields": [
+    {"name": "couleur", "type": "select","options": ["vert", "rouge", "jaune"]},
+    {"name": "media_id", "type": "integer#unsigned"},
+    {"name": "user_id", "type": "integer#unsigned"}
+  ],
+  "foreign_keys": [
+    {"column": "user_id", "references": "id", "on": "users"},
+    {"column": "media_id", "references": "id", "on": "medias"}
+  ],
+  "relationships": [],
+  "validations": []
+}

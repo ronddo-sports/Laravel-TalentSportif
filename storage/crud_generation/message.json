@@ -1,0 +1,19 @@
+ {
+  "fields": [
+    {"name": "content", "type": "text"},
+    {"name": "exped_id", "type": "integer#unsigned"},
+    {"name": "recep_id", "type": "integer#unsigned"},
+    {"name": "est_lu", "type": "boolean"}
+  ],
+  "foreign_keys": [
+    {"column": "exped_id", "references": "id", "on": "users", "onDelete": "cascade"},
+    {"column": "recep_id", "references": "id", "on": "users", "onDelete": "cascade"}
+  ],
+  "relationships": [
+    {"name": "expediteur", "type": "belongsTo", "class": "App\\Model\\User"},
+    {"name": "recepteur", "type": "belongsTo", "class": "App\\Model\\User"}
+  ],
+  "validations": [
+    {"field": "title", "rules": "required|max:10"}
+  ]
+}

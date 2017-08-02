@@ -1,0 +1,40 @@
+ {
+  "fields": [
+    { "name": "username", "type": "string" },
+    { "name": "pseudo", "type": "string" },
+    { "name": "email", "type": "string" },
+    { "name": "password", "type": "string" },
+    { "name": "confirmation_token", "type": "string" },
+    { "name": "remember_token", "type": "string" },
+    { "name": "password_requested_at", "type": "date" },
+    { "name": "last_login", "type": "date" },
+    { "name": "date_naiss", "type": "date" },
+    { "name": "description", "type": "text" },
+    { "name": "discipline", "type": "string" },
+    { "name": "tel", "type": "string" },
+    { "name": "pays", "type": "string" },
+    { "name": "ville", "type": "string" },
+    { "name": "adresse", "type": "string" },
+    { "name": "status", "type": "integer" },
+    { "name": "discr", "type": "string" },
+    { "name": "salt", "type": "string" },
+    { "name": "enabled", "type": "boolean" },
+    { "name": "group_id", "type": "integer#unsigned" },
+    { "name": "user_status_id", "type": "integer#unsigned" }
+  ],
+  "foreign_keys": [
+    { "column": "user_group_id", "references": "id", "on": "user_groups", "onDelete": "cascade" },
+    { "column": "user_group_id", "references": "id", "on": "user_status", "onDelete": "cascade" }
+  ],
+  "relationships": [
+    { "name": "group", "type": "belongsTo", "class": "App\\Model\\UserGroup"},
+    { "name": "status", "type": "belongsTo", "class": "App\\Model\\UserStatus"}
+  ],
+  "validations": [
+    { "field": "email", "rules": "required|email|unique:users" },
+    { "field": "username", "rules": "required|max:60|unique:users" },
+    { "field": "password", "rules": "required|min:8" },
+    { "field": "date_naiss", "rules": "required|date" },
+    { "field": "discipline", "rules": "required|max:50" }
+  ]
+}

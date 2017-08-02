@@ -1,0 +1,44 @@
+ {
+  "fields": [
+    {
+      "name": "title",
+      "type": "string"
+    },
+    {
+      "name": "content",
+      "type": "text"
+    },
+    {
+      "name": "category",
+      "type": "select",
+      "options": ["technology", "tips", "health"]
+    },
+    php artisan crud:generate User --fields_from_file="./storage/crud_generation/user.json" --view-path=admin --route-group=admin --model-namespace=Model
+
+    {
+      "name": "user_id",
+      "type": "integer#unsigned"
+    }
+  ],
+  "foreign_keys": [
+    {
+      "column": "user_id",
+      "references": "id",
+      "on": "users",
+      "onDelete": "cascade"
+    }
+  ],
+  "relationships": [
+    {
+      "name": "user",
+      "type": "belongsTo",
+      "class": "App\\User"
+    }
+  ],
+  "validations": [
+    {
+      "field": "title",
+      "rules": "required|max:10"
+    }
+  ]
+}

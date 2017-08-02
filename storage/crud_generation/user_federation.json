@@ -1,0 +1,18 @@
+{
+  "fields": [
+    { "name": "president", "type": "string"},
+    { "name": "Organisation", "type": "string"},
+    { "name": "user_organisation_id", "type": "integer#unsigned" },
+    { "name": "user_id", "type": "integer#unsigned" }
+  ],
+  "foreign_keys": [
+    { "column": "user_id", "references": "id", "on": "users", "onDelete": "cascade" },
+    { "column": "user_organisation_id", "references": "id", "on": "user_organisations", "onDelete": "cascade" }
+  ],
+  "relationships": [
+    { "name": "user", "type": "belongsTo", "class": "App\\Model\\User" },
+    { "name": "organisation", "type": "belongsTo", "class": "App\\Model\\UserOrganisation" }
+  ],
+  "validations": [
+  ]
+}

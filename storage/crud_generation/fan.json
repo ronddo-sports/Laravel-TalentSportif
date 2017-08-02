@@ -1,0 +1,12 @@
+ {
+  "fields": [
+    {"name": "star_id", "type": "integer#unsigned"},
+    {"name": "fan_id", "type": "integer#unsigned"}
+  ],
+  "foreign_keys": [
+    {"column": "star_id", "references": "id", "on": "users", "onDelete": "cascade"},
+    {"column": "fan_id", "references": "id", "on": "users", "onDelete": "cascade"}
+  ],
+  "relationships": [],
+  "validations": []
+}

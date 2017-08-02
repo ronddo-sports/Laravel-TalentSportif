@@ -1,0 +1,11 @@
+ {
+  "fields": [
+    {"name": "url", "type": "string"},
+    {"name": "media_id", "type": "integer#unsigned"}
+  ],
+  "foreign_keys": [
+    { "column": "media_id", "references": "id", "on": "medias", "onDelete": "cascade" }
+  ],
+  "relationships": [],
+  "validations": []
+}

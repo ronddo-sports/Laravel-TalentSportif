@@ -1,0 +1,15 @@
+{
+  "fields": [
+    { "name": "media_id", "type": "integer#unsigned" },
+    { "name": "user_id", "type": "integer#unsigned" }
+  ],
+  "foreign_keys": [
+    { "column": "media_id", "references": "id", "on": "users" },
+    { "column": "user_id", "references": "id", "on": "users" }
+  ],
+  "relationships": [],
+  "validations": [
+    { "field": "media_id", "rules": "integer" },
+    { "field": "user_id", "rules": "integer" }
+  ]
+}

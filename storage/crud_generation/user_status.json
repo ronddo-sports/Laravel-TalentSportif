@@ -1,0 +1,16 @@
+{
+  "fields": [
+    {"name": "nom", "type": "string"},
+    {"name": "groupe", "type": "string"},
+    {"name": "type", "type": "string"},
+    {"name": "logo_url", "type": "string"},
+    {"name": "enabled", "type": "boolean"}
+  ],
+  "foreign_keys": [],
+  "relationships": [],
+  "validations": [
+    {"field": "nom", "rules": "required"},
+    {"field": "groupe", "rules": "required"},
+    {"field": "groupe", "rules": "required"}
+  ]
+}

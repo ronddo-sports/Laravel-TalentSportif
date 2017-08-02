@@ -1,0 +1,20 @@
+ {
+  "fields": [
+    {"name": "titre", "type": "string"},
+    {"name": "description", "type": "text"},
+    {"name": "discr", "type": "select", "options": ["video", "image"]},
+    {"name": "user_id", "type": "integer#unsigned"}
+  ],
+  "foreign_keys": [
+    {"column": "user_id", "references": "id", "on": "users"}
+  ],
+  "relationships": [
+    {"name": "user", "type": "belongsTo", "class": "App\\User"},
+    {"name": "resource", "type": "hasOne", "class": "App\\Video"}
+  ],
+  "validations": [
+    {"field": "title", "rules": "required"},
+    {"field": "description", "rules": "max:300"},
+    {"field": "discr", "rules": "required"}
+  ]
+}

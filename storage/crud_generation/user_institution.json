@@ -1,0 +1,19 @@
+{
+  "fields": [
+    { "name": "president", "type": "string"},
+    { "name": "federation_id", "type": "integer#unsigned"},
+    {"name": "user_id", "type": "integer#unsigned"}
+  ],
+  "foreign_keys": [
+    {
+      "column": "federation_id", "references": "id", "on": "user_federations", "onDelete": "cascade"
+    },
+    {"column": "user_id", "references": "id", "on": "users", "onDelete": "cascade"}
+  ],
+  "relationships": [
+    {"name": "user", "type": "belongsTo", "class": "App\\Model\\User"},
+    {"name": "federations", "type": "hasMany", "class": "App\\Model\\UserFederation"}
+  ],
+  "validations": [
+  ]
+}
