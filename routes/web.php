@@ -15,33 +15,38 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+\Illuminate\Support\Facades\Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/inscription/step_one',function (){return view('auth.register_1');})->name('etape_une');
+Route::post('/regin', 'Contollers\UserController@step_one')->name('ragister.step.1');
+
 
 // Pour les images ( Glide images )
-
-/*Route::get('img/{path}', function($path, League\Glide\Server $server, Illuminate\Http\Request $request) {
+Route::get('img/{path}', function($path, League\Glide\Server $server, Illuminate\Http\Request $request) {
     $server->outputImage($path, $request->all());
-})->where('path', '.+');*/
-
+})->where('path', '.+');
 //fin glide
 
-Route::resource('admin/user', 'UserController');
 
-Route::resource('admin/palmares', 'PalmaresController');
-Route::resource('admin/media', 'MediaController');
-Route::resource('admin/message', 'MessageController');
-Route::resource('admin/parcour', 'ParcourController');
-Route::resource('admin/photo', 'PhotoController');
-Route::resource('admin/photo-profile', 'PhotoProfileController');
-Route::resource('admin/user-federation', 'UserFederationController');
-Route::resource('admin/user-group', 'UserGroupController');
-Route::resource('admin/user-institution', 'UserInstitutionController');
-Route::resource('admin/user-organisation', 'UserOrganisationController');
-Route::resource('admin/user-sportif', 'UserSportifController');
-Route::resource('admin/user-status', 'UserStatusController');
-Route::resource('admin/video', 'VideoController');
-Route::resource('admin/vue', 'VueController');
-Route::resource('admin/carton', 'CartonController');
-Route::resource('admin/fan', 'FanController');
+Route::group(['middleware' => 'authentic','prefix'=>'media','roles' => ['client','admin']],function (){
+    Route::get('upload', function (){return view('frontend.media.upload');})->name('upload');
+    Route::get('view/{name}', function (){return view('frontend.media.upload');})->name('visione');
+});
+Route::group(['middleware' => 'authentic','prefix'=>'admin','roles' => ['admin']],function (){
+
+    /*
+     * These routes need view-backend permission
+     * (good if you want to allow more than one group in the backend,
+     * then limit the backend features by different roles or permissions)
+     *
+     * Note: Administrator has all permissions so you do not have to specify the administrator role everywhere.
+     */
+    Route::get('', function (){return view('admin.dashboard');})->name('dashboard');
+    includeRouteFiles(__DIR__.'/admin/');
+
+});
+includeRouteFiles(__DIR__.'/frontend/');
+
+
+Route::get('/home', 'HomeController@index')->name('home');

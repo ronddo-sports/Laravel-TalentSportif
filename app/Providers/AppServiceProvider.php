@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use League\Glide\ServerFactory;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,16 +26,16 @@ class AppServiceProvider extends ServiceProvider
     {
         // Pour les images ( Glide )
 
-        /*$this->app->singleton('League\Glide\Server', function($app) {
-            $storageDriver = Storage::getDriver();
+        $this->app->singleton('League\Glide\Server', function($app) {
+
 
             return ServerFactory::create([
-                'source' => $storageDriver,
-                'cache' => $storageDriver,
+                'source' => storage_path('/media/image'),
+                'cache' => storage_path('/media/image/.cache'),
                 'cache_path_prefix' => '.cache',
                 'base_url' => '/img/'
             ]);
-        });*/
+        });
 
         //end glide
 

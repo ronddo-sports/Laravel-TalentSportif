@@ -57,22 +57,24 @@ class UserStatusController extends Controller
         $this->validate($request, [
 			'nom' => 'required',
 			'groupe' => 'required|numeric',
-            'logo_url'=> 'required|image'
+            'image'=> 'required|image'
 
 		]);
-        if ($request->hasFile('logo_url')) {
-            $image = $request->file('logo_url');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time(). '.' . $image->getClientOriginalExtension();
             $temp = Image::make($image)->save(storage_path('/media/image/status/' . $filename));
-        $request->logo_url = $filename;
+            $requestData = $request->all();
+            $requestData['type'] = str_replace(' ','_',$request->nom);
+            $requestData['logo_url'] = '/img/status/'.$filename;
+            UserStatus::create($requestData);
+            //Session::flash('flash_message', 'UserStatus added!');
+
+            return redirect('admin/user-status');
         }
-        $requestData = $request->all();
-        $requestData['type'] = str_replace(' ','_',$request->nom);
-        UserStatus::create($requestData);
 
-        Session::flash('flash_message', 'UserStatus added!');
+  return back()->with(['error'=>'Erruer echec d\'enregistrement']);
 
-        return redirect('admin/user-status');
     }
 
     /**
@@ -121,6 +123,14 @@ class UserStatusController extends Controller
         $requestData = $request->all();
         
         $userstatus = UserStatus::findOrFail($id);
+        if ($request->hasFile('logo_url')) {
+            $image = $request->file('logo_url');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $temp = Image::make($image)->save(storage_path('/media/image/status/' . $filename));
+            $request->logo_url = $filename;
+        }
+        $requestData = $request->all();
+        $requestData['type'] = str_replace(' ','_',$request->nom);
         $userstatus->update($requestData);
 
         Session::flash('flash_message', 'UserStatus updated!');

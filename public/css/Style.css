@@ -26,6 +26,29 @@ a,a:hover{
     padding: 3%;
 
 }
+/*GAllery of status*/
+ul#status li img {
+    height: 116px;
+    display: block;
+}
+ul#status li {
+    display: inline-block;
+    position: relative;
+    border: 3px solid transparent;
+    text-align: center;
+}
+ul#status li:hover {
+    background: rgba(3, 169, 244, 0.43);
+    border: 3px solid #fff;
+}
+ul#status li a {
+    text-decoration: none;
+    font-size: large;
+}
+#status form {
+    display: inline-block;
+}
+/**/
 #sidebar-wrappe {
      padding: 3%;
  }
@@ -207,8 +230,11 @@ div#second-header {
 }
 
 .img_vid{
+    height: 150px; width: 100%; border: 1px hidden;display: block;
 
-
+}
+li.dropdown {
+    list-style-type: none;
 }
 
 .play-vid {
@@ -240,15 +266,18 @@ div#second-header {
     list-style: none;
 }
 .panel-info, .panel-rating, .panel-more1 {
-    float: left;
-    margin: 0 10px;
+
 }
-.panel-more1 {
+.panel-accueil {
     border: 1px solid;
+    display: inline-block;
+    float: left;
+    width: 44%;
 }
-.panel-info {
-    width: 45%;
-}
+.panel-info_accueil {
+    display: inline-block;
+    float: right;
+    width: 50%;}
 .titre_vid{
     color: blue;
     font-size: 18px;

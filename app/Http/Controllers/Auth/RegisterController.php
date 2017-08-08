@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Model\Role;
+use App\Model\UserStatus;
+use App\Model\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -27,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -47,10 +50,15 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        //dd('valdi');
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'discipline' => 'required|string',
+            'pseudo' => 'required|string|min:4|unique:users',
+            //'status_id' => 'required|numeric',
+            'date_naiss' => 'required|date',
         ]);
     }
 
@@ -62,10 +70,32 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+//dd('ici creat');
+
+        $default_role = Role::where('name','client')->first();
+        $user = User::create([
+            'username' => $data['username'],
             'email' => $data['email'],
+            'discipline' => $data['discipline'],
+            'pseudo' => $data['pseudo'],
+            'user_status_id' => $data['status_id'],
             'password' => bcrypt($data['password']),
+            'date_naiss' => $data['date_naiss'],
+            'discr' => $data['discr'],
         ]);
+        $user->roles()->attach($default_role);
+        return $user;
+    }
+    /*
+     * Customized to return to first step if id is not valid
+     */
+    public function showRegistrationForm($id = null)
+    {
+        $qry = UserStatus::where('id','=',$id);
+        if ($qry->count() > 0){
+            $status = $qry->first();
+            return view('auth.register', compact('status'));
+        }
+        return view('auth.register_1');
     }
 }

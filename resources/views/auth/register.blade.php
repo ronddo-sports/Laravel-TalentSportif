@@ -9,21 +9,40 @@
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
-
+    
+                        <div class="form-group {{ $errors->has('username') ? 'has-error' : ''}}">
+                            {!! Form::label('username', 'Nom :', ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
+                                {!! Form::text('username', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                                {!! $errors->first('username', '<p class="help-block">:message</p>') !!}
                             </div>
                         </div>
-
+    
+                        <div class="form-group {{ $errors->has('date_naiss') ? 'has-error' : ''}}">
+                            {!! Form::label('date_naiss', 'Date Naiss', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-6">
+                                {!! Form::date('date_naiss', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                                {!! $errors->first('date_naiss', '<p class="help-block">:message</p>') !!}
+                            </div>
+                        </div>
+    
+    
+                        <div class="form-group {{ $errors->has('pseudo') ? 'has-error' : ''}}">
+                            {!! Form::label('pseudo', 'Pseudo', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-6">
+                                {!! Form::text('pseudo', null, ['class' => 'form-control']) !!}
+                                {!! $errors->first('pseudo', '<p class="help-block">:message</p>') !!}
+                            </div>
+                        </div>
+                        
+                        <div class="form-group {{ $errors->has('discipline') ? 'has-error' : ''}}">
+                            {!! Form::label('discipline', 'Discipline', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-6">
+                                {!! Form::text('discipline', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                                {!! $errors->first('discipline', '<p class="help-block">:message</p>') !!}
+                            </div>
+                        </div>
+                        
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
@@ -57,14 +76,20 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                <input type="hidden" name="status_id" value="{{@$status->id}}">
+                                <input type="hidden" name="discr" value="{{@$status->type}}">
                             </div>
                         </div>
-
+    
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
+                            @if(isset($status))
                                 <button type="submit" class="btn btn-primary">
-                                    Register
+                                    Register{{$status->id}}
                                 </button>
+                                @else
+                                    <a href="{{route('')}}" class="btn btn-primary">Register</a>
+                                        @endif
                             </div>
                         </div>
                     </form>

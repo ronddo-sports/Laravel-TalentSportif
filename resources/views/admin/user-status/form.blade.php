@@ -6,7 +6,7 @@
     </div>
 </div>
 <div class="form-group {{ $errors->has('groupe') ? 'has-error' : ''}}">
-    {!! Form::label('groupe', 'Groupe', ['class' => 'col-md-4 control-label']) !!}
+    {!! Form::label('groupe', 'Groupe *', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         {!! Form::select('groupe', ['Sportif', 'Acteurs', 'Centre', 'Agent', 'Organisation', 'Federation', 'Intitut'], null, ['class' => 'form-control']) !!}
         {!! $errors->first('groupe', '<p class="help-block">:message</p>') !!}
@@ -20,9 +20,9 @@
     </div>
 </div>--}}
 <div class="form-group {{ $errors->has('logo_url') ? 'has-error' : ''}}">
-    {!! Form::label('logo_url', 'Logo Url', ['class' => 'col-md-4 control-label']) !!}
+    {!! Form::label('logo_url', 'Image *', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::file('logo_url', null, ['class' => 'form-control']) !!}
+        {!! Form::file('image', null, ['class' => 'form-control']) !!}
         {!! $errors->first('logo_url', '<p class="help-block">:message</p>') !!}
     </div>
 </div>

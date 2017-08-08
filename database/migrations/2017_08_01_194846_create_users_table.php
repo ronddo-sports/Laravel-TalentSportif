@@ -33,9 +33,10 @@ class CreateUsersTable extends Migration
             $table->string('discr');
             $table->string('salt')->nullable();
             $table->boolean('enabled')->default(false);
-            $table->integer('group_id')->unsigned();
-            $table->integer('user_group_id')->unsigned();
-            $table->integer('user_status_id')->unsigned();
+
+            $table->integer('group_id')->unsigned()->nullable();
+            $table->integer('user_group_id')->unsigned()->nullable();
+            $table->integer('user_status_id')->unsigned()->nullable();
 
             $table->foreign('group_id')->references('id')->on('user_groups')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('user_group_id')->references('id')->on('user_status')->onDelete('cascade')->onUpdate('cascade');

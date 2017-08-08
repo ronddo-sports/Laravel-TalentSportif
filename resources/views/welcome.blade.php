@@ -4,15 +4,19 @@
     
     <div>
         <ul class="list-group">
+            {{--<video src="{{ storage_path().'\media\video\ggggg.mp4' }}" width="600" controls></video>--}}
+           {{--@if(Auth::check())
+           {{json_encode(Auth::user())}}
+            @endif--}}
             <li class="list-group-item">
                 <div>
                     <div class="panel-body">
-                        <div class="panel-more1">
-                            <a href="#" class="img_vid"  style=" height: 200px; width: 300px; border: 1px hidden;display: block; background: url('http://lorempixel.com/300/200');">
+                        <div class="panel-accueil">
+                            <a href="#" class="img_vid"  style=" background: url('http://lorempixel.com/300/200');">
                                 <div class="play-vid">Lancer...</div>
                             </a>
                         </div>
-                        <div class="panel-info">
+                        <div class="panel-info_accueil">
                             <br>
                             <p><strong class="titre_vid">Le titre va came ici c OKLM yes tout marche</strong></p>
                             <p>9182 Lorem Ipsum<br/>
@@ -26,12 +30,12 @@
             <li class="list-group-item">
                 <div>
                     <div class="panel-body">
-                        <div class="panel-more1">
-                            <a href="#" class="img_vid"  style=" height: 200px; width: 300px; border: 1px hidden;display: block; background: url('http://lorempixel.com/300/200');">
+                        <div class="panel-accueil">
+                            <a href="#" class="img_vid"  style="background: url('http://lorempixel.com/300/200');">
                                 <div class="play-vid">Lancer...</div>
                             </a>
                         </div>
-                        <div class="panel-info">
+                        <div class="panel-info_accueil">
                             <br>
                             <p><strong class="titre_vid">Le titre va came ici c OKLM yes tout marche</strong></p>
                             <p>9182 Lorem Ipsum<br/>
@@ -45,12 +49,12 @@
             <li class="list-group-item">
                 <div>
                     <div class="panel-body">
-                        <div class="panel-more1">
-                            <a href="#" class="img_vid"  style=" height: 200px; width: 300px; border: 1px hidden;display: block; background: url('http://lorempixel.com/300/200');">
-                                <div class="play-vid">Lancer...</div>
+                        <div class="panel-accueil">
+                            <a href="#" class="img_vid"  style="background: url('http://lorempixel.com/300/200');">
+                                <div class="play-vid"></div>
                             </a>
                         </div>
-                        <div class="panel-info">
+                        <div class="panel-info_accueil">
                             <br>
                             <p><strong class="titre_vid">Le titre va came ici c OKLM yes tout marche</strong></p>
                             <p>9182 Lorem Ipsum<br/>
@@ -64,12 +68,12 @@
             <li class="list-group-item">
                 <div>
                     <div class="panel-body">
-                        <div class="panel-more1">
-                            <a href="#" class="img_vid"  style=" height: 200px; width: 300px; border: 1px hidden;display: block; background: url('http://lorempixel.com/300/200');">
+                        <div class="panel-accueil">
+                            <a href="#" class="img_vid"  style="background: url('http://lorempixel.com/300/200');">
                                 <div class="play-vid">Lancer...</div>
                             </a>
                         </div>
-                        <div class="panel-info">
+                        <div class="panel-info_accueil">
                             <br>
                             <p><strong class="titre_vid">Le titre va came ici c OKLM yes tout marche</strong></p>
                             <p>9182 Lorem Ipsum<br/>
@@ -83,12 +87,12 @@
             <li class="list-group-item">
                 <div>
                     <div class="panel-body">
-                        <div class="panel-more1">
-                            <a href="#" class="img_vid"  style=" height: 200px; width: 300px; border: 1px hidden;display: block; background: url('http://lorempixel.com/300/200');">
+                        <div class="panel-accueil">
+                            <a href="#" class="img_vid"  style="background: url('http://lorempixel.com/300/200');">
                                 <div class="play-vid">Lancer...</div>
                             </a>
                         </div>
-                        <div class="panel-info">
+                        <div class="panel-info_accueil">
                             <br>
                             <p><strong class="titre_vid">Le titre va came ici c OKLM yes tout marche</strong></p>
                             <p>9182 Lorem Ipsum<br/>

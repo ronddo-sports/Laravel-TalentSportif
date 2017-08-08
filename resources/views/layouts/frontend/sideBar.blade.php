@@ -1,10 +1,14 @@
 <div id="side-bar-left" style="height: 400px;background: #fff">
     <div id="sidebar-wrapper" class="sidebar-toggle">
+        
+        @if(Auth::guest())
         <div class="panel-title" style="text-align: center">
-            Créez un compte ou connectez-vous pour faire decouvrir votre talent<br>
-            <a href="#" class="btn btn-info">Connexion </a><br>
+            <a href="{{route('register')}}">Créez un compte</a> ou connectez-vous pour faire decouvrir votre talent<br>
+            <a href="{{route('login')}}" class="btn btn-info">Connexion </a><br>
             <hr>
         </div>
+        @endif
+        
         <div class="panel-title">CHAINES A SUIVRE</div>
         <ul class="nav sidebar-nav">
             <li>

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+
 
 use App\Model\User;
+use App\Model\UserStatus;
 use Illuminate\Http\Request;
 use Session;
 
@@ -167,5 +167,14 @@ class UserController extends Controller
             return $file->move($path, $filename);
         }
 
+    }
+    public function step_one($id = null)
+    {
+        $qry = UserStatus::where('id','=',$id);
+        if ($qry->count() > 0){
+            $status = $qry->first();
+            return view('auth.register', compact('status'));
+        }
+        return redirect(route('etape_une'));
     }
 }
