@@ -23,7 +23,7 @@ class User extends Authenticatable
      */
     protected $primaryKey = 'id';
 
-    protected $dates = ['last_login', 'date_naiss', ''];
+    protected $dates = ['last_login', 'date_naiss', 'created_at'];
     /**
      * Attributes that should be mass-assignable.
      *

@@ -1,4 +1,4 @@
-@extends('layouts.frontend.Layout')
+@extends('frontend.Layouts.___Layout')
 
 @section('content')
     
@@ -8,6 +8,8 @@
            {{--@if(Auth::check())
            {{json_encode(Auth::user())}}
             @endif--}}
+            <a href="#menu-toggle" class="onContent" id="menu-toggl">Menu <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+    
             <li class="list-group-item">
                 <div>
                     <div class="panel-body">
@@ -105,5 +107,8 @@
             </li>
         </ul>
     </div>
+
+@stop
+@section('customScripts')
 
 @stop

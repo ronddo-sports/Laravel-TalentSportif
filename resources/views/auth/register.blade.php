@@ -1,4 +1,4 @@
-@extends('layouts.frontend.Layout')
+@extends('frontend.Layouts._Layout')
 
 @section('content')
 <div>

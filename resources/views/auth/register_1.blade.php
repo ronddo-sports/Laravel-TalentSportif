@@ -1,7 +1,7 @@
-@extends('layouts.frontend.Layout')
+@extends('frontend.Layouts._Layout')
 
 @section('content')
-<div>
+<div class="one_colum">
     <div class="row">
     
     <ul id="status">

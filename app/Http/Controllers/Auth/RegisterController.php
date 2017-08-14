@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Model\Role;
+use App\Model\UserSportif;
 use App\Model\UserStatus;
 use App\Model\User;
 use App\Http\Controllers\Controller;
@@ -52,7 +53,7 @@ class RegisterController extends Controller
     {
         //dd('valdi');
         return Validator::make($data, [
-            'username' => 'required|string|max:255',
+            'username' => 'required|unique:users|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'discipline' => 'required|string',
@@ -73,8 +74,10 @@ class RegisterController extends Controller
 //dd('ici creat');
 
         $default_role = Role::where('name','client')->first();
+
         $user = User::create([
             'username' => $data['username'],
+            'username_canonical' => str_replace(' ','_',$data['username']).''.str_replace(' ','_',$data['pseudo']),
             'email' => $data['email'],
             'discipline' => $data['discipline'],
             'pseudo' => $data['pseudo'],
@@ -83,6 +86,26 @@ class RegisterController extends Controller
             'date_naiss' => $data['date_naiss'],
             'discr' => $data['discr'],
         ]);
+        switch ($data['status_id']){
+            case 0:
+                UserSportif::create(['user_id'=>$user->id]);
+                break;
+            case 2:
+                dd('centre');
+                break;
+            case 3:
+                dd('aggent');
+                break;
+            case 4:
+                dd('organisatio');
+                break;
+            case 5:
+                dd('federation');
+                break;
+            case 5:
+                dd('istitution');
+                break;
+        }
         $user->roles()->attach($default_role);
         return $user;
     }
