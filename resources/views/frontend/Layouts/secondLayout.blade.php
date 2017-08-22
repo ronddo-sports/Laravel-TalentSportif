@@ -19,14 +19,24 @@
     <div class="content toggled" id="wrapper">
         {{--Ces trois sont la pour que si le side bar par defaut enerve une vue il peut le
         redefinire sans toucher le layout il va de meme pour le content --}}
-        @yield('sideBarFirst')
+        <div id="sidebar-wrapper" class="sidebar-toggle" data-spy="affix" data-offset-top="350px">
+            <a href="#menu-toggle" class="onBar" id="menu-toggle"><i class="fa fa-caret-left" aria-hidden="true"></i> Menu</a>
+         <div class="space1"></div>
+            @yield('sideBarFirst')
+            
+        </div>
         
-        @yield('contentContainer')
-    
+        
+            @yield('contentContainer')
+        
+        
+        
         @yield('sideBarSecond')
 
+        
     </div>
 
+    
     @include('frontend.Layouts.footer')
     
 @stop
@@ -53,12 +63,18 @@
         $("#menu-toggle").click(function(e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
-            $("#menu-toggl").css('display','block');
+           
+            setTimeout(function () {
+                $("#menu-toggl").css('display','block');
+            },300)
         });
         $("#menu-toggl").click(function(e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
-            $("#menu-toggl").css('display','none');
+            setTimeout(function () {
+                $("#menu-toggl").css('display','none');
+            },200)
+            
 
         });
     </script>

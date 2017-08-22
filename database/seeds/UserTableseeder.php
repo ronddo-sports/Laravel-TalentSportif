@@ -18,6 +18,7 @@ class UserTableseeder extends Seeder
 
         $user = new User();
         $user->username = 'Momo Tidjani';
+        $user->username_canonical = 'momo_tidjani';
         $user->email = 'admin@g.com';
         $user->discr = 'admin';
         $user->discipline = 'administration';

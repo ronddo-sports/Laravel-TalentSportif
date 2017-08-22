@@ -84,33 +84,6 @@ class _MediaController extends Controller
         return redirect()->route('upload');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
-    public function upload()
-    {
-
-        $photos = null;
-
-        $qry = DB::table('media')->where('user_id','=',Auth::id())
-                            ->where('discr','=','image')
-                            ->where('del','=',false);
-        if ($qry->count() > 0){
-
-            $photos = $qry->join('photos', 'media.id', '=', 'photos.media_id')
-                ->select('media.*', 'photos.url')
-                ->orderBy('created_at','desc')
-                ->get();
-
-
-        }
-
-        return view('frontend.media.upload', compact('photos'));
-    }
 
     /**
      * Show the form for editing the specified resource.

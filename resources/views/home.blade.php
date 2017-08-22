@@ -35,6 +35,7 @@
 @section('content')
  
     <div>
+        <a href="#menu-toggle" class="onContent" id="menu-toggl">Menu <i class="fa fa-caret-right" aria-hidden="true"></i></a>
         <div class="">
             <div class="text-center ">
                 <div class="panel-default">

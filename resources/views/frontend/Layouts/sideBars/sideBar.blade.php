@@ -3,7 +3,7 @@
     <div id="sidebar-wrappe" class="sidebar-toggle">
         <div class="panel-title" style="text-align: center">
             Envoyer vos Photos et videos pour faire decouvrir votre talent<br>
-              <a href="{{route('upload')}}" class="btn-danger upload"><i class="glyphicon glyphicon-upload"></i> Uploader</a><br>
+              <a href="{{route('upload.image')}}" class="btn-danger upload"><i class="glyphicon glyphicon-upload"></i> Uploader</a><br>
             {{--<a href="#" class="btn-danger upload" onclick="uploaod()"><i class="glyphicon glyphicon-upload"></i> Uploader</a><br>--}}
             <hr>
         </div>

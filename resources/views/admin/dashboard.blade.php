@@ -10,6 +10,7 @@
 
                 <div class="panel-body">
                     Your application's dashboard.
+                    Ce n'est pas internet
                 </div>
             </div>
         </div>

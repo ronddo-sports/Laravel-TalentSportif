@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\UserFederationController;
 use App\Model\Role;
+use App\Model\UserFederation;
+use App\Model\UserGroup;
+use App\Model\UserInstitution;
+use App\Model\UserOrganisation;
 use App\Model\UserSportif;
 use App\Model\UserStatus;
 use App\Model\User;
@@ -77,7 +82,7 @@ class RegisterController extends Controller
 
         $user = User::create([
             'username' => $data['username'],
-            'username_canonical' => str_replace(' ','_',$data['username']).''.str_replace(' ','_',$data['pseudo']),
+            'username_canonical' => str_replace(' ','_',$data['username']).'_'.str_replace(' ','_',$data['pseudo']),
             'email' => $data['email'],
             'discipline' => $data['discipline'],
             'pseudo' => $data['pseudo'],
@@ -91,19 +96,24 @@ class RegisterController extends Controller
                 UserSportif::create(['user_id'=>$user->id]);
                 break;
             case 2:
-                dd('centre');
+               // dd('centre');
+                UserGroup::create(['user_id'=>$user->id]);
                 break;
             case 3:
-                dd('aggent');
+               // dd('aggent');
+                //UserManager::create(['user_id'=>$user->id]);
                 break;
             case 4:
-                dd('organisatio');
+                //dd('organisatio');
+                UserOrganisation::create(['user_id'=>$user->id]);
                 break;
             case 5:
-                dd('federation');
+               // dd('federation');
+                UserFederation::create(['user_id'=>$user->id]);
                 break;
             case 5:
-                dd('istitution');
+               // dd('istitution');
+                UserInstitution::create(['user_id'=>$user->id]);
                 break;
         }
         $user->roles()->attach($default_role);

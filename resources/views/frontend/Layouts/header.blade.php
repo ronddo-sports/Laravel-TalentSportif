@@ -24,11 +24,13 @@
                 <div class="log"><a href="{{route('etape_une')}}">Inscription</a></div>
             @else
                 <ul class="dropdown" style="position: relative;">
-                    <li>
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="position: absolute;">
-                            <img src="/img/user_uploads/1502539022.png?w=30&h=30&fit=crop">  {{ Auth::user()->username }} <span class="caret"></span>
-                        </a>
-                    </li>
+                   
+                      
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="position: absolute;">
+                              <img src="/img/user_uploads/1502539022.png?w=30&h=30&fit=crop">  {{ Auth::user()->username }} <span class="caret"></span>
+                          </a>
+                      
+                   
             
                     <ul class="dropdown-menu connected" role="menu">
                         <li>
@@ -60,14 +62,16 @@
         
         <!-- Si le user est connecte-->
         <div class="container">
-            @if(Auth::guest())
-                <ul class="nav navbar-nav" style="float: left;">
+            @if(!Auth::guest())
+                <ul class="nav navbar-nav" style="float: left;font-size: 143%;">
                     Faites conaitre votre talent !
         
                 </ul>
             @else
-                <span id="menu_" class="btn-flat btn-primary" style="padding: 2px;cursor: pointer;float: left;" onclick="showMenu()">
-                Menu
+                <span id="menu_" class="btn-flat btn-primary" style="padding: 5px;cursor: pointer;float: left;" onclick="showMenu()">Menu <i class="fa fa-caret-right" aria-hidden="true"></i>
+                </span>
+                <span id="men_" class="btn-flat btn-primary" style="padding: 5px;cursor: pointer;float: left;display: none" onclick="hideMenu()">
+                Menu <i class="fa fa-caret-down" aria-hidden="true"></i>
                 </span>
                 <ul id="menu" class="nav navbar-nav" style="float: left;z-index: 9999999">
                     <li><a href="#">Accueil</a></li>
@@ -81,7 +85,7 @@
                 
             @endif
             
-            <a href="{{route('upload')}}" class="upload"><i class="glyphicon glyphicon-upload"></i> Envoyer</a>
+            <a href="{{route('upload.image')}}" class="upload"><i class="glyphicon glyphicon-upload"></i> Envoyer</a>
         
         </div>
     
@@ -91,7 +95,13 @@
 <script>
     function showMenu(){
         $('#menu_').css('display','none');
+        $('#men_').css('display','block');
         $('#menu').css('display','block');
+    }
+    function hideMenu(){
+        $('#menu_').css('display','block');
+        $('#men_').css('display','none');
+        $('#menu').css('display','none');
     }
 </script>
 <div class="space"></div>

@@ -1,9 +1,7 @@
 
 {{--<div id="side-bar-left" style="min-height: 400px;background: #fff">--}}
 
-    <div id="sidebar-wrapper" class="sidebar-toggle" data-spy="affix" data-offset-top="350px">
-        <a href="#menu-toggle" class="onBar" id="menu-toggle"><i class="fa fa-caret-left" aria-hidden="true"></i> Menu</a>
-        @if(Auth::guest())
+     @if(Auth::guest())
         <div class="panel-title" style="text-align: center">
             <a href="{{route('register')}}">Créez un compte</a> ou connectez-vous pour faire decouvrir votre talent<br>
             <a href="{{route('login')}}" class="btn btn-info">Connexion </a><br>
@@ -24,7 +22,7 @@
                 <a href="#item3">Franky Negro canal</a>
             </li>
         </ul>
-    </div>
+    
 
 {{--
 </div>

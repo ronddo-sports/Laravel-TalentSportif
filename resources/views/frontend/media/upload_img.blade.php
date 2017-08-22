@@ -50,37 +50,39 @@
     a.act{
         right: 0;
     }
+    .choix a {
+        padding: 7px 34px;
+        text-transform: capitalize;
+        font-size: 121%;
+        position: relative;
+    }
+    .choix {
+        background: #fff;
+        min-height: 35px;
+        text-align: center;
+        margin-bottom: 10px;
+        border-bottom: 4px solid lightgrey;
+    }
+    .active_{
+        border-bottom: 3px solid;
+    }
 </style>
 
     @stop
     
 @section('content')
     
-    <a href="#menu-toggle" class="onContent" id="menu-toggl">Menu</a>
-    <div style="padding: 1%;">
-    <div style="background: #fff; min-height: 400px" class="choix">
-        
-        <div class="col-md-6" style="text-align: center">
-            <div style="border: 1px solid dodgerblue">
-            <img src="/img/image_icon/myAvatar.png?w=200&h=200&fit=crop">
-            <h1><a href="#" class="btn-flat btn-primary" style="padding: 5px;" onclick="showImages()">Ajouter des <strong>images</strong></a>
-            </h1>
-            </div>
-        </div>
-        <div class="col-md-6" style="text-align: center">
-            <div style="border: 1px solid dodgerblue">
-            <img src="/img/image_icon/myAvatar.png?w=200&h=200&fit=crop">
-            <h1><a href="#" class="btn-flat btn-info" style="padding: 5px;">Ajouter des
-                    <strong>Videos</strong></a></h1>
-            </div>
-        </div>
+    
+    <div style="padding: 1%;max-width: 1000px; margin: auto;">
+    <div class="choix">
+        <a href="{{route('upload.video')}}" class="active_"> Upload Image</a><a href="{{route('upload.video')}}">Upload Video</a>
     </div>
     
-    <div class="upload_image" style="display: none">
-        <div class="panel panel-info">
-            <div class="panel-heading">
+    <div class="upload_image">
+        <div class=" panel-info">
+            {{--<div class="panel-heading">
                 <h3 class="panel-title"><a href="/home">{{Auth::user()->username}}</a> / Mes Images</h3>
-            </div>
+            </div>--}}
             <div class="panel-body">
                 <form enctype="multipart/form-data" action="{{route('media.image.post')}}" method="post">
                     <div class="col-md-6">
@@ -94,12 +96,14 @@
                         </div>
                         <br><br><br>
                         <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
-                            {!! Form::label('description', 'Description', ['class' => 'col-md-4 control-label']) !!}
+                            <label for="description" class="col-md-4 control-label">Description</label>
                             <div class="col-md-6">
-                                {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
+                                <textarea class="form-control" name="description" cols="50" rows="4" id="description">Description de la video</textarea>
                                 {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
                             </div>
                         </div>
+                        
+                        
                         
                         {{--Informations cachés--}}
                         <div class="form-group">
@@ -114,12 +118,14 @@
                         
                         
                         
-                        <div class="col-sm-8">
-                            <div class="cropit-preview icons"></div>
-                            <input type="file" name="image" class="cropit-image-input btn" required>
+                        <div class="col-sm-12">
+                            <label class="control-label">Selectionez votre image puis validez</label>
+                            <div class="cropit-preview icons"></div><br>
+                            <div id="inpt-btn-click" class="btn-flat btn-primary col-sm-6" style="padding: 1%;cursor: pointer;"><i class="fa fa-upload" aria-hidden="true"></i> Selectionez l'image</div>
+                            <input type="file" name="image" class="cropit-image-input btn" required id="inpt-btn" style="display: none"><br>
                             <input type="hidden" name="libele" value="icon">
-                            <label class="col-sm-7 control-label">Selectionez votre image puis validez</label>
-                            <input type="submit" value="Valider" class="btn btn-flat btn-info" style="float: right;">
+                            
+                            <input type="submit" value="Valider" class="btn btn-flat btn-info col-sm-3" style="float: right;">
                         </div>
                         
                         
@@ -164,10 +170,9 @@
         $(document).ready(function () {
             $('.image-editor').cropit();
         });
-        function showImages() {
-            $('.choix').css('display', 'none');
-            $('.upload_image').css('display', 'block');
-        }
+        $('#inpt-btn-click').on("click" , function () {
+            $('#inpt-btn').click();
+        });
     
     
     </script>
