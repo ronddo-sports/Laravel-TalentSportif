@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Model\PhotoProfile;
+use App\Model\Album;
 use Illuminate\Http\Request;
 use Session;
 
@@ -22,13 +22,13 @@ class PhotoProfileController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $photoprofile = PhotoProfile::where('discr', 'LIKE', "%$keyword%")
+            $photoprofile = Album::where('discr', 'LIKE', "%$keyword%")
 				->orWhere('del', 'LIKE', "%$keyword%")
 				->orWhere('active', 'LIKE', "%$keyword%")
 				->orWhere('user_id', 'LIKE', "%$keyword%")
 				->paginate($perPage);
         } else {
-            $photoprofile = PhotoProfile::paginate($perPage);
+            $photoprofile = Album::paginate($perPage);
         }
 
         return view('admin.photo-profile.index', compact('photoprofile'));
@@ -58,9 +58,9 @@ class PhotoProfileController extends Controller
 		]);
         $requestData = $request->all();
         
-        PhotoProfile::create($requestData);
+        Album::create($requestData);
 
-        Session::flash('flash_message', 'PhotoProfile added!');
+        Session::flash('flash_message', 'Album added!');
 
         return redirect('admin/photo-profile');
     }
@@ -74,7 +74,7 @@ class PhotoProfileController extends Controller
      */
     public function show($id)
     {
-        $photoprofile = PhotoProfile::findOrFail($id);
+        $photoprofile = Album::findOrFail($id);
 
         return view('admin.photo-profile.show', compact('photoprofile'));
     }
@@ -88,7 +88,7 @@ class PhotoProfileController extends Controller
      */
     public function edit($id)
     {
-        $photoprofile = PhotoProfile::findOrFail($id);
+        $photoprofile = Album::findOrFail($id);
 
         return view('admin.photo-profile.edit', compact('photoprofile'));
     }
@@ -108,10 +108,10 @@ class PhotoProfileController extends Controller
 		]);
         $requestData = $request->all();
         
-        $photoprofile = PhotoProfile::findOrFail($id);
+        $photoprofile = Album::findOrFail($id);
         $photoprofile->update($requestData);
 
-        Session::flash('flash_message', 'PhotoProfile updated!');
+        Session::flash('flash_message', 'Album updated!');
 
         return redirect('admin/photo-profile');
     }
@@ -125,9 +125,9 @@ class PhotoProfileController extends Controller
      */
     public function destroy($id)
     {
-        PhotoProfile::destroy($id);
+        Album::destroy($id);
 
-        Session::flash('flash_message', 'PhotoProfile deleted!');
+        Session::flash('flash_message', 'Album deleted!');
 
         return redirect('admin/photo-profile');
     }

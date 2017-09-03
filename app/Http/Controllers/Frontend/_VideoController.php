@@ -65,6 +65,11 @@ class _VideoController extends Controller
         return view('frontend.media.upload_vid', compact('videos'));
     }
 
+    public function getUsersVideos($id)
+    {
+        return view('frontend.profile.ressource_video');
+    }
+
 
     /**
      * Show the form for creating a new resource.

@@ -19,3 +19,7 @@ Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+/*custom two step registration */
+Route::get('/inscription/step_one',function (){return view('auth.register_1');})->name('etape_une');
+Route::post('/regin', 'Admin\UserController@step_one')->name('ragister.step.1');

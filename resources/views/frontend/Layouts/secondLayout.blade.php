@@ -9,8 +9,14 @@
     <link rel="icon" href="/icon/logo_ico.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
     <link href="/css/style.css" rel="stylesheet" type="text/css">
+    {{--<link href="/css/JQuery-UI.css" rel="stylesheet" type="text/css">--}}
     <link href="/dist/css/sweetalert.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/blueimp-gallery.min.css">
+    {{--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">--}}
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+
+
 @endsection
 
 @section('body')
@@ -19,7 +25,7 @@
     <div class="content toggled" id="wrapper">
         {{--Ces trois sont la pour que si le side bar par defaut enerve une vue il peut le
         redefinire sans toucher le layout il va de meme pour le content --}}
-        <div id="sidebar-wrapper" class="sidebar-toggle" data-spy="affix" data-offset-top="350px">
+        <div id="sidebar-wrapper" class="sidebar-toggle" data-spy="affix" data-offset-top="350px" style="padding-bottom: 135px;">
             <a href="#menu-toggle" class="onBar" id="menu-toggle"><i class="fa fa-caret-left" aria-hidden="true"></i> Menu</a>
          <div class="space1"></div>
             @yield('sideBarFirst')
@@ -45,7 +51,8 @@
 
 @section('scripts')
     <script type="text/javascript" src="/bootstrap/js/jquery.min.js"></script>
-    
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+    <script src="/js/jquery-ui.js"></script>
     <script>
         $(document).ready(function(){
             $(".dropdown").hover(
@@ -77,10 +84,23 @@
             
 
         });
+
+        document.getElementById('links').onclick = function (event) {
+            event = event || window.event;
+            var target = event.target || event.srcElement,
+                link = target.src ? target.parentNode : target,
+                options = {index: link, event: event},
+                links = this.getElementsByTagName('a');
+            blueimp.Gallery(links, options);
+        };
+        
+        
+   
     </script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/dist/js/sweetalert.min.js"></script>
     <script type="text/javascript" src="/dist/js/jquery.cropit.js"></script>
+    <script src="/js/blueimp-gallery.min.js"></script>
     
 
 @stop

@@ -25,7 +25,9 @@ class Medium extends Model
      *
      * @var array
      */
-    protected $fillable = ['titre', 'description', 'discr', 'user_id'];
+    protected $fillable = ['titre', 'description', 'discr', 'user_id','album_id'];
+
+    protected $dates = ['created_at','updated_at'];
 
     
 }

@@ -48,6 +48,13 @@ a,a:hover{
     /*padding: 3%;*/
 
 }
+.sidebarmenu{
+    margin-bottom: 0;
+    font-size: 17px;
+    color: inherit;
+    text-transform: uppercase;
+    border-bottom: 1px solid lightgrey;
+}
 /*GAllery of status*/
 ul#status li img {
     height: 116px;
@@ -81,8 +88,20 @@ ul#status li a {
     max-height: 80px;
 
 }
+div#second-header span {
+    font-weight: bold;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0 4px;
+    color: #fff;
+    font-size: 11px;
+    background: rgba(255, 3, 0, 0.71);
+    border-radius: 10px;
+}
+
 div#second-header img {
-    height: 28px;
+    height: 20px;
     position: relative;
 }
 #second-header .txt {
@@ -370,6 +389,33 @@ a#menu-toggl.onContent {
     float: left;
 
 }*/
+.container{
+    padding: 0;
+}
+i.myAccount {
+    cursor: pointer;
+    border: 2px solid #298ffd;
+    display: block;
+    height: 31px;
+    color: #298ffd;
+    padding: 0 3px 0 0;
+    margin-left: 6px;
+}
+i.resp_text{
+    font-style: normal;
+}
+i.myAccount:hover {
+    background: #298ffd;
+    color: #fff;
+}
+#advance-search button{
+    border-radius: 0;padding: 4px 12px;background-color: #298FFD;
+}
+#advance-search{
+    width: 100%;
+    background: #fff;
+    margin-bottom: 5px;
+}
 #main-content{
     width: 75%;
     min-height: 470px;
@@ -421,17 +467,17 @@ a#menu-toggl.onContent {
 #menu_{
     display: none;
 }
-@media (max-width: 770px) {
-#menu_{
-    display: block;
-}
-#menu{
-    display: none;
-}
+@media (max-width: 768px) {
+    i.resp_text{
+        display: none;
+    }
+    .nav>li {
+        display: inline-block;
+    }
 }
 
 .img_vid{
-    height: 150px; width: 100%; border: 1px hidden;display: block;
+    height: 185px; width: 100%; border: 1px hidden;display: block;
 
 }
 li.dropdown {
@@ -474,6 +520,7 @@ li.dropdown {
     display: inline-block;
     float: left;
     width: 44%;
+    max-width: 350px;
 }
 .panel-info_accueil {
     display: inline-block;
@@ -485,7 +532,7 @@ li.dropdown {
 }
 .pub-header {
      font-size: 110%;
-     padding: 4px 0 0px 1%;
+     padding: 4px 0 0 1%;
      display: inline-block;
  }
 

@@ -2,36 +2,53 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\Model\Medium;
 use App\Model\Message;
+use App\Model\User;
 use Illuminate\Http\Request;
 use Session;
+use App\Model\Album;
 
-class _MessageController extends Controller
+class _AlbumController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request,$u_cononic,$a_name, $a_id)
     {
-        $keyword = $request->get('search');
-        $perPage = 25;
-
-        if (!empty($keyword)) {
-            $message = Message::where('content', 'LIKE', "%$keyword%")
-				->orWhere('exped_id', 'LIKE', "%$keyword%")
-				->orWhere('recep_id', 'LIKE', "%$keyword%")
-				->orWhere('est_lu', 'LIKE', "%$keyword%")
-				->paginate($perPage);
-        } else {
-            $message = Message::paginate($perPage);
+        $qry = Album::where('id',$a_id)
+            ->where('name',$a_name);
+        if( $qry->count() > 0){
+            $album = $qry->first();
+        }else{
+            $qry1 = User::where('username_canonical',$u_cononic);
+            if ($qry1->count() > 0){
+                $user = $qry1->first();
+                $qry = Album::where('owner_id',$user->id)
+                    ->where('owner_table','users')
+                    ->where('name',$a_name);
+                if( $qry->count() > 0){
+                    $album = $qry->first();
+                }
+            }else{
+                return view('errors.404',['msg'=>'Album Introuvable. Il a du etre suprimer']);
+            }
         }
+        $images = Medium::where('album_id',$album->id)
+            ->where('discr','image')
+            ->leftJoin('photos','media_id','=','media.id')
+            ->select('media.*','photos.url')
+            ->get();
+        $videos = Medium::where('album_id',$album->id)
+            ->where('discr','video')
+            ->leftJoin('videos','media_id','=','media.id')
+            ->select('media.*','videos.url')
+            ->get();
 
-        return view('admin.message.index', compact('message'));
+        return view('frontend.media.showAlbum', compact('images', 'videos','album'));
     }
 
     /**

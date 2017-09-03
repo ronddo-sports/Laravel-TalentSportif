@@ -1,5 +1,6 @@
 <?php
 
+use App\Model\Album;
 use App\Model\Role;
 use App\Model\User;
 use Illuminate\Database\Seeder;
@@ -29,6 +30,7 @@ class UserTableseeder extends Seeder
 
         $user0 = new User();
         $user0->username = 'Jean Louis';
+        $user0->username_canonical = 'jean_louis';
         $user0->discr = 'admin';
         $user0->discipline = 'administration';
         $user0->date_naiss = new DateTime();
@@ -37,6 +39,15 @@ class UserTableseeder extends Seeder
         $user0->save();
         $user0->roles()->attach($role_admin);
 
+        Album::create(['owner_id'=>$user0->id,'owner_table'=>'users',
+            'name'=>'profile','user_id'=>$user0->id]);
+        Album::create(['owner_id'=>$user0->id,'owner_table'=>'users',
+            'name'=>'uploads','user_id'=>$user0->id]);
+
+        Album::create(['owner_id'=>$user->id,'owner_table'=>'users',
+            'name'=>'profile','user_id'=>$user->id]);
+        Album::create(['owner_id'=>$user->id,'owner_table'=>'users',
+            'name'=>'uploads','user_id'=>$user->id]);
         /*$user1 = new User();
         $user1->name = 'Gangster';
         $user1->email = 'visiteur@gmail.com';

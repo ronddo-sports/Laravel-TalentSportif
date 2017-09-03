@@ -17,8 +17,11 @@ class CreateMediaTable extends Migration
             $table->string('titre')->nullable();
             $table->text('description')->nullable();
             $table->string('discr');
+            $table->boolean('del')->default(false);
             $table->integer('user_id')->unsigned();
+            $table->integer('album_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('album_id')->references('id')->on('albums');
             $table->timestamps();
         });
     }

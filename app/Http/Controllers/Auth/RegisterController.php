@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\UserFederationController;
+use App\Model\Album;
 use App\Model\Role;
 use App\Model\UserFederation;
 use App\Model\UserGroup;
@@ -91,6 +92,11 @@ class RegisterController extends Controller
             'date_naiss' => $data['date_naiss'],
             'discr' => $data['discr'],
         ]);
+
+        Album::create(['owner_id'=>$user->id,'owner_table'=>'users',
+            'name'=>'profile','user_id'=>$user->id]);
+        Album::create(['owner_id'=>$user->id,'owner_table'=>'users',
+            'name'=>'uploads','user_id'=>$user->id]);
         switch ($data['status_id']){
             case 0:
                 UserSportif::create(['user_id'=>$user->id]);
@@ -111,7 +117,7 @@ class RegisterController extends Controller
                // dd('federation');
                 UserFederation::create(['user_id'=>$user->id]);
                 break;
-            case 5:
+            case 6:
                // dd('istitution');
                 UserInstitution::create(['user_id'=>$user->id]);
                 break;

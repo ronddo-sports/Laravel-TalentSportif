@@ -1,14 +1,11 @@
-@extends('layouts.frontend.Layout')
-
-@section('content')
-    
+  
     <div>
         <ul class="list-group">
             <li class="list-group-item">
                 <div>
                     <div class="panel-body">
                         <div class="panel-more1">
-                            <a href="#" class="img_vid"  style=" height: 250px; width: 300px; border: 1px hidden;display: block; background: url('http://lorempixel.com/300/200');">
+                            <a href="#" class="img_vid"  style=" height: 200px; width: 300px; border: 1px hidden;display: block; background: url('http://lorempixel.com/300/200');">
                                 <div class="play-vid">Lancer...</div>
                             </a>
                         </div>
@@ -101,5 +98,4 @@
             </li>
         </ul>
     </div>
-
-@stop
+    

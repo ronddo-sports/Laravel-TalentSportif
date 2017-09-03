@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Model\Album;
 use App\Model\Medium;
 use App\Model\Photo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -74,9 +76,16 @@ class _PhotoController extends Controller
             $image = $request->file('image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $temp = Image::make($image)->save(storage_path('/media/image/user_uploads/' . $filename));
-
+            if ($request->album_id != null){
+                $album = Album::where('id',$request->album_id)->first();
+            }else{
+                $album = Album::where('user_id',Auth::id())
+                    ->where('name','uploads')->first();
+            }
             $media = ['titre'=>$request->titre, 'description'=>$request->description,
-                'discr'=>'image', 'user_id'=>Auth::user()->id];
+                'discr'=>'image', 'user_id'=>Auth::id(),'album_id'=>$album->id];
+            $album->updated_at = Carbon::now();
+            $album->save();
 
             $mediaF = Medium::create($media);
 

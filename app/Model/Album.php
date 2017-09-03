@@ -4,14 +4,14 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PhotoProfile extends Model
+class Album extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'photo_profiles';
+    protected $table = 'albums';
 
     /**
     * The database primary key value.
@@ -25,7 +25,7 @@ class PhotoProfile extends Model
      *
      * @var array
      */
-    protected $fillable = ['discr', 'del', 'active', 'user_id'];
+    protected $fillable = ['owner_id','owner_table','name','del','active','user_id'];
 
     public function user()
 	{

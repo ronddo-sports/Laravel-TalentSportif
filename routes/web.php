@@ -18,9 +18,6 @@ Route::get('/', function () {
 \Illuminate\Support\Facades\Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/inscription/step_one',function (){return view('auth.register_1');})->name('etape_une');
-Route::post('/regin', 'Admin\UserController@step_one')->name('ragister.step.1');
-Route::get('/profile/{key}', 'Frontend\_UserController@show')->name('profile');
 
 
 // Pour les images ( Glide images )
@@ -29,17 +26,12 @@ Route::get('img/{path}', function($path, League\Glide\Server $server, Illuminate
 })->where('path', '.+');
 //fin glide
 
+Route::get('/profile/{key}', 'Frontend\_UserController@show')->name('profile');
 Route::get('regarde', function (){return view('frontend.media.LectureVideo');})->name('lectureVid');
+Route::get('about', function (){return view('frontend.about.about');})->name('about');
 
 
-Route::group(['middleware' => 'authentic','prefix'=>'media','roles' => ['client','admin']],function (){
-    Route::get('upload/image', 'Frontend\_PhotoController@upload')->name('upload.image');
-    Route::post('upload/image', 'Frontend\_PhotoController@store' )->name('media.image.post');
-    Route::get('upload/video', 'Frontend\_VideoController@upload')->name('upload.video');
-    Route::post('upload/video', 'Frontend\_VideoController@store' )->name('media.video.post');
-    Route::get('view/edsc', function (){return view('frontend.media.upload');})->name('media.delete');
-    Route::get('view/{name}', function (){return view('frontend.media.upload');})->name('visione');
-});
+
 Route::group(['middleware' => 'authentic','prefix'=>'admin','roles' => ['admin']],function (){
 
     /*
@@ -53,8 +45,8 @@ Route::group(['middleware' => 'authentic','prefix'=>'admin','roles' => ['admin']
     includeRouteFiles(__DIR__.'/admin/');
 
 });
+
 includeRouteFiles(__DIR__.'/frontend/');
 
 
-Route::get('/home', 'HomeController@index')->name('home');
 

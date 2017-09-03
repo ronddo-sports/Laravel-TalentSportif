@@ -42,6 +42,10 @@ class _MediaController extends Controller
      *
      * @return \Illuminate\View\View
      */
+    public function give()
+    {
+
+    }
     public function create()
     {
         return view('admin.media.create');
@@ -68,7 +72,7 @@ class _MediaController extends Controller
             $temp = Image::make($image)->save(storage_path('/media/image/user_uploads/' . $filename));
 
             $media = ['titre'=>$request->titre, 'description'=>$request->description,
-                      'discr'=>'image', 'user_id'=>Auth::user()->id];
+                      'discr'=>'image', 'user_id'=>Auth::id()];
 
             $mediaF = Medium::create($media);
 

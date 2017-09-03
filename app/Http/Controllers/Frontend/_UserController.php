@@ -107,7 +107,7 @@ class _UserController extends Controller
         if ($user == null){
             return view('errors.404',['msg'=>'User Not Found']);
         }
-        return view('frontend.home_', compact('user'));
+        return view('frontend.profile.guest.home_', compact('user'));
     }
 
     /**

@@ -75,7 +75,7 @@
     
     <div style="padding: 1%;max-width: 1000px; margin: auto;">
         <div class="choix">
-            <a href="{{route('upload.video')}}" > Upload Image</a><a href="{{route('upload.video')}}" class="active_">Upload Video</a>
+            <a href="{{route('upload.image')}}" > Upload Image</a><a href="{{route('upload.video')}}" class="active_">Upload Video</a>
         </div>
         
         <div class="upload_image">
@@ -84,7 +84,7 @@
                     <h3 class="panel-title"><a href="/home">{{Auth::user()->username}}</a> / Mes Images</h3>
                 </div>--}}
                 <div class="panel-body">
-                    <form enctype="multipart/form-data" action="{{route('media.image.post')}}" method="post">
+                    <form enctype="multipart/form-data" action="{{route('media.video.post')}}" method="post">
                         <div class="col-md-6">
                             
                             <div class="form-group {{ $errors->has('titre') ? 'has-error' : ''}}">
@@ -104,7 +104,7 @@
                             </div>
                             <br><br><br>
                             <div class="form-group {{ $errors->has('video') ? 'has-error' : ''}}">
-                                <label for="description" class="col-md-4 control-label">Description</label>
+                                <label for="Selectionez le fichier" class="col-md-4 control-label">Selectionez le fichier</label>
                                 <div class="col-md-6">
                                     <input type="file" class="form-control" name="video" id="video">
                                     {!! $errors->first('video', '<p class="help-block">:message</p>') !!}
