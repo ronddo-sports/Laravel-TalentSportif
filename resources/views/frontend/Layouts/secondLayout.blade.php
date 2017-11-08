@@ -8,6 +8,7 @@
 @section('styles')
     <link rel="icon" href="/icon/logo_ico.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/font-awesome.min.css">
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     {{--<link href="/css/JQuery-UI.css" rel="stylesheet" type="text/css">--}}
     <link href="/dist/css/sweetalert.css" rel="stylesheet" type="text/css">
@@ -27,7 +28,7 @@
         redefinire sans toucher le layout il va de meme pour le content --}}
         <div id="sidebar-wrapper" class="sidebar-toggle" data-spy="affix" data-offset-top="350px" style="padding-bottom: 135px;">
             <a href="#menu-toggle" class="onBar" id="menu-toggle"><i class="fa fa-caret-left" aria-hidden="true"></i> Menu</a>
-         <div class="space1"></div>
+         <div class="space1"><a href="/"><i class="glyphicon glyphicon-home"></i> Accueil</a> </div>
             @yield('sideBarFirst')
             
         </div>
@@ -44,6 +45,17 @@
 
     
     @include('frontend.Layouts.footer')
+
+    <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+    <div id="blueimp-gallery" class="blueimp-gallery">
+        <div class="slides"></div>
+        <h3 class="title"></h3>
+        <a class="prev">‹</a>
+        <a class="next">›</a>
+        <a class="close">×</a>
+        <a class="play-pause"></a>
+        <ol class="indicator"></ol>
+    </div>
     
 @stop
 
@@ -85,14 +97,7 @@
 
         });
 
-        document.getElementById('links').onclick = function (event) {
-            event = event || window.event;
-            var target = event.target || event.srcElement,
-                link = target.src ? target.parentNode : target,
-                options = {index: link, event: event},
-                links = this.getElementsByTagName('a');
-            blueimp.Gallery(links, options);
-        };
+       
         
         
    
@@ -101,7 +106,21 @@
     <script type="text/javascript" src="/dist/js/sweetalert.min.js"></script>
     <script type="text/javascript" src="/dist/js/jquery.cropit.js"></script>
     <script src="/js/blueimp-gallery.min.js"></script>
-    
+    <script>
+        /*My customisation of blue-imp lithgbox. this is to display as many lightboxes(albums as i wish)*/
+        $(document).ready(function () {
+            for(i = 0; i < document.getElementsByClassName('links').length; i++){
+                document.getElementsByClassName('links').item(i).addEventListener('click', function (event) {
+                    event = event || window.event;
+                    var target = event.target || event.srcElement,
+                        link = target.src ? target.parentNode : target,
+                        options = {index: link, event: event},
+                        links = this.getElementsByTagName('a');
+                    blueimp.Gallery(links, options);
+                });
+            }
+        });
+    </script>
 
 @stop
 

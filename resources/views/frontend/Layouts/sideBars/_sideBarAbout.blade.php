@@ -28,7 +28,7 @@
 <div class="sidebarmenu">GRAPHIX STUDIO</div>
 <ul class="nav sidebar-nav">
     <li>
-        <a href="#graphix_crea" title="GRAPHIX STUDIO CREA">GRAPHIX STUDIO CREA</a>
+        <a href="#graphix_crea"  title="GRAPHIX STUDIO CREA">GRAPHIX STUDIO CREA</a>
     </li>
     <li>
         <a href="#graphix_des" title="GRAPHIX STUDIO DESIGN">DESIGN</a>

@@ -7,6 +7,7 @@ use App\Model\Medium;
 use App\Model\Message;
 use App\Model\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Session;
 use App\Model\Album;
 
@@ -19,6 +20,13 @@ class _AlbumController extends Controller
      */
     public function index(Request $request,$u_cononic,$a_name, $a_id)
     {
+        /*$user = DB::table('users')->get();
+        $album = DB::table('albums')->get();
+        $media = DB::table('media')->get();
+      $merge = ($user->merge($media))->merge($album)->sortBy('username');
+
+ dd($merge);*/
+        Album::find(1);
         $qry = Album::where('id',$a_id)
             ->where('name',$a_name);
         if( $qry->count() > 0){
@@ -29,9 +37,11 @@ class _AlbumController extends Controller
                 $user = $qry1->first();
                 $qry = Album::where('owner_id',$user->id)
                     ->where('owner_table','users')
-                    ->where('name',$a_name);
+                    ->where('name_canonical',$a_name);
                 if( $qry->count() > 0){
                     $album = $qry->first();
+                }else{
+                    return view('errors.404',['msg'=>'Album Introuvable. Il a du etre suprimer']);
                 }
             }else{
                 return view('errors.404',['msg'=>'Album Introuvable. Il a du etre suprimer']);

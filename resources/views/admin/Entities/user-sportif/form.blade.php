@@ -2,7 +2,7 @@
     {!! Form::label('category', 'Category', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         {!! Form::text('category', null, ['class' => 'form-control']) !!}
-        {!! $errors->first('category', '<p class="help-block">:message</p>') !!}
+        {!! $errors->first('category', 'messenger') !!}
     </div>
 </div><div class="form-group {{ $errors->has('club_actuel') ? 'has-error' : ''}}">
     {!! Form::label('club_actuel', 'Club Actuel', ['class' => 'col-md-4 control-label']) !!}
@@ -44,7 +44,7 @@
     {!! Form::label('user_group_id', 'User Group Id', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         {!! Form::number('user_group_id', null, ['class' => 'form-control']) !!}
-        {!! $errors->first('user_group_id', '<p class="help-block">:message</p>') !!}
+        {!! $errors->first('user_group_id', 'messenger') !!}
     </div>
 </div>
 

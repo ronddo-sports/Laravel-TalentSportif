@@ -17,11 +17,12 @@ class  CreateAlbumsTable extends Migration
             $table->integer('owner_id');
             $table->string('owner_table');
             $table->string('name');
-            $table->boolean('del')->default(false);
+            $table->string('name_canonical');
+
             $table->boolean('active')->default(true);
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

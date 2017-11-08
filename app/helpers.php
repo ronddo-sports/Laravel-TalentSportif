@@ -3,6 +3,8 @@
 /**
  * Global helpers file with misc functions.
  */
+use App\Model\Medium;
+
 if (! function_exists('app_name')) {
     /**
      * Helper to grab the application name.
@@ -12,6 +14,115 @@ if (! function_exists('app_name')) {
     function app_name()
     {
         return config('app.name');
+    }
+}
+
+if (! function_exists('transUpl')) {
+    /**
+     * Access (lol) the Access:: facade as a simple function.
+     */
+    function transUpl($text)
+    {
+        if ($text == 'uploads')
+            return 'Telechargements';
+        return $text;
+    }
+}
+
+if (! function_exists('formatDate')) {
+    /**
+     * Access (lol) the Access:: facade as a simple function.
+     */
+    function formatDate($date)
+    {
+        //return ($date)->format('d M Y H:i');
+    }
+}
+if (! function_exists('getAlbums')) {
+    /**
+     * Access (lol) the Access:: facade as a simple function.
+     */
+    function getAlbums(){
+        if (Auth::check()){
+            return \App\Model\Album::where('owner_id',Auth::id())
+                ->where('owner_table','users')
+                ->where('name_canonical','<>','profile')->get();
+        }
+        return null;
+    }
+}
+if (! function_exists('getAlbumFromId')) {
+    /**
+     * Access (lol) the Access:: facade as a simple function.
+     */
+    function getAlbumFromId($id){
+        $qry = \App\Model\Album::where('id',$id)
+            ->withTrashed()->where('owner_table','users');
+        if ($qry->count() > 0){
+            return $qry->first();
+        }
+        return null;
+    }
+}
+
+if (! function_exists('getAlbumImagesFromAlbumId')) {
+    /**
+     * Access (lol) the Access:: facade as a simple function.
+     */
+    function getAlbumImagesFromAlbumId($id){
+        $qry = Medium::where('discr','image')
+            ->where('album_id',$id)
+            ->join('photos','media.id','=','photos.media_id')
+            ->select('photos.url')
+            ->limit(4);
+        if ($qry->count() > 0){
+            return $qry->get();
+        }
+        return null;
+    }
+}
+
+if (! function_exists('getImageSrcFromMediaId')) {
+    /**
+     * Access (lol) the Access:: facade as a simple function.
+     */
+    function getImageSrcFromMediaId($id){
+       return \App\Model\Photo::where('media_id',$id)->first();
+    }
+}
+
+if (! function_exists('profilePicFromUserId')) {
+    /**
+     * Access (lol) the Access:: facade as a simple function.
+     */
+    function profilePicFromUserId($id){
+
+       $qry = Medium::where('user_id',$id)
+           ->where('discr','profil')
+           ->where('actif',true)
+           ->join('photos','media.id','=','media_id')
+           ->select('photos.url');
+       if($qry->count() > 0){
+           return $qry->first()['url'];
+       }
+           return '/img/default_prof.jpg';
+    }
+}
+
+if (! function_exists('banierePicFromUserId')) {
+    /**
+     * Access (lol) the Access:: facade as a simple function.
+     */
+    function banierePicFromUserId($id){
+       $qry = Medium::where('user_id',$id)
+           ->where('discr','baniere')
+           ->where('actif',true)
+           ->join('photos','media.id','=','media_id')
+           ->select('photos.url');
+       if($qry->count() > 0){
+           return $qry->first()['url'];
+       }
+           return '/img/default_ban.jpg';
     }
 }
 

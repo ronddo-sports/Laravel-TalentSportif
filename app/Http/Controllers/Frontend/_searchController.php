@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Album;
 use App\Model\Medium;
 use App\Model\Photo;
+use App\Model\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
 use Session;
 
-class _PhotoController extends Controller
+class _searchController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,40 +25,68 @@ class _PhotoController extends Controller
      */
     public function index(Request $request)
     {
-        $keyword = $request->get('search');
-        $perPage = 25;
+        $keys = preg_split('/\s+/', $request->keyword, -1, PREG_SPLIT_NO_EMPTY);
 
-        if (!empty($keyword)) {
-            $photo = Medium::where('titre', 'LIKE', "%$keyword%")
-                ->orWhere('description', 'LIKE', "%$keyword%")
-                ->orWhere('discr', 'LIKE', "%$keyword%")
-                ->orWhere('user_id', 'LIKE', "%$keyword%")
-                ->join('photos','media.id','=','photos.media_id')
-                ->select('media.*','photos.url')
-                ->paginate($perPage);
-        } else {
-            $photo = DB::table('media')
-                ->join('photos','media.id','=','photos.media_id')
-                ->select('media.*','photos.url')
-                ->paginate($perPage);
-        }
-       // dd(json_encode($photo));
 
-        return view('admin.Entities.photo.index', compact('photo'));
+
+
+        $albums = DB::table('albums')->where('albums.deleted_at','=',null)->where(function ($q) use ($keys) {
+            foreach ($keys as $key){
+                $q->orwhere('name', 'LIKE', "%$key%");
+                }
+            })->join('users','users.id','=','albums.owner_id')
+            ->select('albums.*','users.id as uid','users.username','users.username_canonical')
+            ->get();
+
+        $users = DB::table('users')->where('users.deleted_at','=',null)->where(function ($q) use ($keys) {
+            foreach ($keys as $key){
+                $q->orwhere('username', 'LIKE', "%$key%")
+                    ->orWhere('pseudo', 'LIKE', "%$key%")
+                    ->orWhere('email', 'LIKE', "%$key%");
+            }
+        })->get();
+        $media = DB::table('media')->where('media.deleted_at','=',null)->where(function ($q) use ($keys) {
+            foreach ($keys as $key){
+                $q->orwhere('titre', 'LIKE', "%$key%")
+                    ->orWhere('media.description', 'LIKE', "%$key%")
+                    ->orWhere('media.discr', 'LIKE', "%$key%");
+            }
+        })->join('users','users.id','=','media.user_id')
+            ->select('media.*','users.id as uid','users.username','users.username_canonical')
+            ->get();
+
+
+      $props = ['discr', 'description', 'email', 'username', 'name','titre'];
+
+        $results = $albums->merge($users);
+        $results = $results->merge($media);
+        $results = $results->sortByDesc(function($i, $k) use ($keys, $props) {
+            // The bigger the weight, the higher the record
+            $weight = 0;
+            // Iterate through search terms
+            foreach($keys as $searchTerm) {
+                // Iterate through properties (address1, address2...)
+                foreach($props as $prop) {
+                    // Use strpos instead of %value% (cause php)
+                    if(strpos( $prop, $searchTerm) !== false)
+                        $weight += 1; // Increase weight if the search term is found
+                }
+            }
+
+            return $weight;
+        });
+
+        return view('frontend.search.general_search', compact('results'));
     }
 
 
     public function getUsersImage($u_id = null)
     {
-        if($u_id == null){
-            $qry = Album::where('owner_id', Auth::id());
-        }else{
-            $qry = Album::where('owner_id', $u_id);
-        }
-        $albums = $qry->where('owner_table','users')
-                ->join('users','albums.owner_id','=','users.id')
-                ->select('albums.*','users.username_canonical as username')
-                ->get();
+        $albums = Album::where('owner_id', Auth::id())
+            ->where('owner_table','users')
+            ->join('users','albums.owner_id','=','users.id')
+            ->select('albums.*','users.username_canonical as username')
+            ->get();
         return view('frontend.profile.ressource_image', compact('albums'));
     }
 
@@ -78,7 +107,7 @@ class _PhotoController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request, $albn = null)
+    public function store(Request $request)
     {
 
         /*$this->validate($request, [
@@ -119,42 +148,9 @@ class _PhotoController extends Controller
             Session::flash('flash_message', 'Medium added!');
         }
 
-        if ($albn = null){
-            return redirect()->route('upload.image');
-        }
-        return redirect()->route('album.get',['a_name'=> $album->name ,
-            'u_cononic'=>Auth::user()->username_canonical ,'a_id'=>$album->id]);
-
-    }
-
-    public function storeProfile(Request $request)
-    {
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            $temp = Image::make($image)->save(storage_path('/media/image/user_uploads/' . $filename));
-
-            $media = ['titre'=>0000000, 'description'=>11111111,
-                      'discr'=>$request->discr , 'user_id'=>Auth::id()];
-
-            $ancien = Medium::where('user_id',Auth::id())
-                    ->where('actif',true)
-                    ->where('discr',$request->discr)->get();
-            foreach ($ancien as $item){
-                $item->actif = false;
-                $item->save();
-            }
-            $mediaF = Medium::create($media);
-
-            $foto = ['url'=> '/img/user_uploads/' . $filename, 'media_id'=>$mediaF->id];
-
-            Photo::create($foto);
 
 
-
-            Session::flash('flash_message', 'Medium added!');
-        }
-        return redirect()->route('home');
+        return redirect()->route('upload.image');
     }
 
     /**

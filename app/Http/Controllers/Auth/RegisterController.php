@@ -94,9 +94,7 @@ class RegisterController extends Controller
         ]);
 
         Album::create(['owner_id'=>$user->id,'owner_table'=>'users',
-            'name'=>'profile','user_id'=>$user->id]);
-        Album::create(['owner_id'=>$user->id,'owner_table'=>'users',
-            'name'=>'uploads','user_id'=>$user->id]);
+            'name'=>'uploads','name_canonical'=>'uploads']);
         switch ($data['status_id']){
             case 0:
                 UserSportif::create(['user_id'=>$user->id]);

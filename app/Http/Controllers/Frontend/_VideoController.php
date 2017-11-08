@@ -50,8 +50,7 @@ class _VideoController extends Controller
         $videos = null;
 
         $qry = DB::table('media')->where('user_id','=',Auth::id())
-            ->where('discr','=','video')
-            ->where('del','=',false);
+            ->where('discr','=','video');
         if ($qry->count() > 0){
 
             $videos = $qry->join('videos', 'media.id', '=', 'videos.media_id')
@@ -65,7 +64,7 @@ class _VideoController extends Controller
         return view('frontend.media.upload_vid', compact('videos'));
     }
 
-    public function getUsersVideos($id)
+    public function getUsersVideos($id = null)
     {
         return view('frontend.profile.ressource_video');
     }

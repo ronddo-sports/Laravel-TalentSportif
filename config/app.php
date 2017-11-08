@@ -164,6 +164,9 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Cmgmyr\Messenger\MessengerServiceProvider::class,
+        App\Providers\CustomAuthProvider::class,
+        Dawson\Youtube\YoutubeServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -230,6 +233,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
+        'Youtube' => Dawson\Youtube\Facades\Youtube::class,
 
     ],
 

@@ -4,10 +4,11 @@ namespace App\Model;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Cmgmyr\Messenger\Traits\Messagable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable,Messagable;
 
     /**
      * The database table used by the model.
@@ -29,7 +30,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['username', 'pseudo', 'email', 'password', 'confirmation_token',
+    protected $fillable = ['username', 'pseudo','username_canonical', 'email', 'password', 'confirmation_token',
         'remember_token', 'password_requested_at', 'last_login', 'date_naiss',
         'description', 'discipline', 'tel', 'pays', 'ville', 'adresse', 'status'
         , 'discr', 'salt', 'enabled', 'group_id', 'user_status_id'];

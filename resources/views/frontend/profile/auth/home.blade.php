@@ -2,15 +2,30 @@
 
 @php
 // Just to reuse the code to make the profile when not connected
+
     $user = Auth::user();
-   /* $baniere = \App\Model\User::where('users.id',Auth::id())
-                ->leftJoin('media','media.user_id','=','users.id')
-                ->*/
 @endphp
 
 @section('customStyles')
     <style>
-     
+        .cropit-preview {
+            background-color: #f8f8f8;
+            background-size: cover;
+            margin-top: 7px;
+            width: 334px;
+            height: 250px;
+            border: 3px solid rgba(128, 128, 128, 0.34);
+        
+        }
+        .cropit-preview.baniere {
+            background-color: #f8f8f8;
+            background-size: cover;
+            margin-top: 7px;
+            width: 500px;
+            height: 200px;
+            border: 3px solid rgba(128, 128, 128, 0.34);
+        
+        }
      .userpic{
          position: relative;
      }
@@ -81,9 +96,9 @@
             <div class="text-center ">
                 <div class="panel-default" onmouseover="showPencil()" onmouseleave="hidePencil()">
                     <i class="fa fa-pencil fa-2x profil_chg" aria-hidden="true" id="chg_baniere" style="position:absolute;right: 0px;"></i>
-                    <div class="userprofile social " style="background: url('/imag/default_ban.jpg') no-repeat top center; background-size: 100%; padding: 50px 0;
+                    <div class="userprofile social " style="background: url('{{banierePicFromUserId($user->id).'?w=1200&h=300&fit=crop'}}') no-repeat top center; background-size: 100%; padding: 50px 0;
     margin: 0;">
-                        <div class="userpic"><a id="foto_chg" href="#" onmouseover="hidePencil()" onmouseleave="showPencil()"><img src="/imag/default.jpg" class="userpicimg" style=""><i class="fa fa-pencil fa-lg profil_chg" aria-hidden="true"></i></a></div>
+                        <div class="userpic"><a id="foto_chg" href="#" onmouseover="hidePencil()" onmouseleave="showPencil()"><img src='{{ profilePicFromUserId($user->id).'?w=400&h=300&fit=crop' }}' class="userpicimg" style=""><i class="fa fa-pencil fa-lg profil_chg" aria-hidden="true"></i></a></div>
                         <h3 class="username"> {{$user->username  ? $user->username : $user->pseudo}} </h3>
                     </div>
                     <div class="clearfix"></div>
@@ -91,15 +106,15 @@
             </div>
             <!-- /.col-md-12 -->
            
-            <div class="col-md-8 col-sm-12 pull-left posttimeline">
+            <div class="col-md-8 col-sm-12 posttimeline">
     
                 <div id="tabs">
-                    <ul class="nav nav-pills pull-left countlist" role="tablist" style="z-index:99;">
-                        <li><a href="{{route('profile.video.get', 1)}}" title="Photos">Photos</a></li>
-                        <li><a href="{{route('profile.image.get', 1)}}" title="Videos">Videos</a></li>
-                        <li><a href="#tabs-1">A propos</a></li>
+                    <ul class="nav nav-pills pull-left countlist" role="tablist" style="z-index:10;">
+                        <li><a href="#tabs-1">Mon Profile</a></li>
+                        <li><a href="{{route('profile.image.get')}}" title="Photos">Photos</a></li>
+                        <li><a href="{{route('profile.video.get')}}" title="Videos">Videos</a></li>
                         <li><a href="/fdbhbjx">Parcour</a></li>
-                        <li class="pull-right"><a href="#tabs-2" title="Messagerie"><i class="glyphicon glyphicon-envelope"></i></a></li>
+                        <li class="pull-right"><a href="{{route('get.users.messagerie')}}" title="Messagerie"><i class="fa fa-envelope"></i></a></li>
                     </ul>
                     <div id="tabs-1">
     
@@ -133,7 +148,7 @@
             
                                 <tr>
                                     <td>Date de Naissance</td>
-                                    <td>{{($user->date_naiss)->format('d M Y')}}</td>
+                                    {{--<td>{{($user->date_naiss)->format('d M Y')}}</td>--}}
                                 </tr>
             
                                 <tr>
@@ -142,7 +157,7 @@
                                 </tr>
                                 <tr>
                                     <td>Membre depuis : </td>
-                                    <td>{{($user->created_at)->format('d M Y H:m')}}</td>
+                                    {{--<td>{{formatDate($user->created_at)}}</td>--}}
                                 </tr>
                                 <tr>
                                     <td>Email</td>
@@ -151,17 +166,6 @@
                                 <tr>
                                     <td>Telephone : </td>
                                     <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
-                                    </td>
-            
-                                </tr>
-                                <tr>
-                                    <td>Palmares : </td>
-                                    <td>
-                                        <ul class="nav">
-                                            <li>2010 - 2011 : Lycee Bilingue d'Essos </li>
-                                            <li>2011 - 2016 : Université de Dschang</li>
-                                            <li>2016 - 2017 : Institut Universitaire de la Cote (CS2I-MSI)</li>
-                                        </ul>
                                     </td>
             
                                 </tr>
@@ -188,515 +192,26 @@
                         
                     </div>
                     <div id="tabs-2">
-                             formulaire ici !
+                    
                   </div>
                 </div>
-    
-                <div class="content-tabs">
-                    <div class="content-tabs-body">
-                       
-                        <!-- // content-tabs-i // -->
-                        <div class="content-tabs-i" style="display: none;">
                 
-                            <!-- // flight-item // -->
-                            <!-- \\ flight-item \\ -->
-                        </div>
-                        <!-- \\ content-tabs-i \\ -->
-                        <!-- // content-tabs-i // -->
-                        <div class="content-tabs-i" style="display: none;">
-                            <h2>Hotel Facilities</h2>
-                            <p>Voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
-                                dolores eos qui voluptatem sequi nesciunt. </p>
-                            <ul class="preferences-list">
-                                <li class="internet">High-speed Internet</li>
-                                <li class="conf-room">Conference room</li>
-                                <li class="play-place">Play Place</li>
-                                <li class="restourant">Restourant</li>
-                                <li class="bar">Bar</li>
-                                <li class="doorman">Doorman</li>
-                                <li class="kitchen">Kitchen</li>
-                                <li class="spa">Spa services</li>
-                                <li class="bike">Bike Rental</li>
-                                <li class="entertaiment">Entertaiment</li>
-                                <li class="hot-tub">Hot Tub</li>
-                                <li class="pool">Swimming Pool</li>
-                                <li class="parking">Free parking</li>
-                                <li class="gym">Gym</li>
-                                <li class="tv">TV</li>
-                                <li class="pets">Pets allowed</li>
-                                <li class="handicap">Handicap</li>
-                                <li class="secure">Secure</li>
-                            </ul>
-                            <div class="clear"></div>
-                            <div class="preferences-devider"></div>
-                            <h2>Alternative Style</h2>
-                            <p>Quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
-                                voluptatem sequi nesciunt eque porro quisqua.</p>
-                            <ul class="preferences-list-alt">
-                                <li class="internet">High-speed Internet</li>
-                                <li class="parking">Free parking</li>
-                                <li class="gym">Gym</li>
-                                <li class="restourant">Restourant</li>
-                                <li class="pets">Pets allowed</li>
-                                <li class="pool">Swimming Pool</li>
-                                <li class="kitchen">Kitchen</li>
-                                <li class="conf-room">Conference room</li>
-                                <li class="bike">Bike Rental</li>
-                                <li class="entertaiment">Entertaiment</li>
-                                <li class="bar">Bar</li>
-                                <li class="secure">Secure</li>
-                            </ul>
-                            <div class="clear"></div>
-                        </div>
-                        <!-- \\ content-tabs-i \\ -->
-                        <!-- // content-tabs-i // -->
-                        <div class="content-tabs-i" style="display: none;">
-                            <h2>Things to do</h2>
-                            <p class="small">Voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                                consequuntur magni dolores eos qui voluptatem sequi nesciunt. </p>
-                            <div class="todo-devider"></div>
-                            <div class="todo-row">
-                                <!-- // -->
-                                <div class="cat-list-item">
-                                    <div class="cat-list-item-l">
-                                        <a href="#"><img alt="" src="assets/img/todo-01.jpg"></a>
-                                    </div>
-                                    <div class="cat-list-item-r">
-                                        <div class="cat-list-item-rb">
-                                            <div class="cat-list-item-p">
-                                                <div class="cat-list-content">
-                                                    <div class="cat-list-content-a">
-                                                        <div class="cat-list-content-l">
-                                                            <div class="cat-list-content-lb">
-                                                                <div class="cat-list-content-lpadding">
-                                                                    <div class="offer-slider-link"><a href="#">Totam rem
-                                                                            aperiam, eaque ipsa quae</a></div>
-                                                                    <div class="offer-rate">Exelent</div>
-                                                                    <p>Voluptatem quia voluptas sit aspernatur aut odit aut
-                                                                        figut, sed quia consequuntur magni dolores eos qui
-                                                                        voluptatem sequi nescuint. Neque porro quisqua. Sed
-                                                                        ut perspiciatis unde omnis ste.</p>
-                                                                </div>
-                                                            </div>
-                                                            <br class="clear">
-                                                        </div>
-                                                    </div>
-                                                    <div class="cat-list-content-r">
-                                                        <div class="cat-list-content-p">
-                                                            <nav class="stars">
-                                                                <ul>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                </ul>
-                                                                <div class="clear"></div>
-                                                            </nav>
-                                                            <div class="cat-list-review">31 reviews</div>
-                                                            <a href="#" class="todo-btn">Read more</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="clear"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br class="clear">
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <!-- \\ -->
-                                <!-- // -->
-                                <div class="cat-list-item">
-                                    <div class="cat-list-item-l">
-                                        <a href="#"><img alt="" src="assets/img/todo-02.jpg"></a>
-                                    </div>
-                                    <div class="cat-list-item-r">
-                                        <div class="cat-list-item-rb">
-                                            <div class="cat-list-item-p">
-                                                <div class="cat-list-content">
-                                                    <div class="cat-list-content-a">
-                                                        <div class="cat-list-content-l">
-                                                            <div class="cat-list-content-lb">
-                                                                <div class="cat-list-content-lpadding">
-                                                                    <div class="offer-slider-link"><a href="#">Invertore
-                                                                            veitatis et quasi architecto</a></div>
-                                                                    <div class="offer-rate">Exelent</div>
-                                                                    <p>Voluptatem quia voluptas sit aspernatur aut odit aut
-                                                                        figut, sed quia consequuntur magni dolores eos qui
-                                                                        voluptatem sequi nescuint. Neque porro quisqua. Sed
-                                                                        ut perspiciatis unde omnis ste.</p>
-                                                                </div>
-                                                            </div>
-                                                            <br class="clear">
-                                                        </div>
-                                                    </div>
-                                                    <div class="cat-list-content-r">
-                                                        <div class="cat-list-content-p">
-                                                            <nav class="stars">
-                                                                <ul>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                </ul>
-                                                                <div class="clear"></div>
-                                                            </nav>
-                                                            <div class="cat-list-review">31 reviews</div>
-                                                            <a href="#" class="todo-btn">Read more</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="clear"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br class="clear">
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <!-- \\ -->
-                                <!-- // -->
-                                <div class="cat-list-item">
-                                    <div class="cat-list-item-l">
-                                        <a href="#"><img alt="" src="assets/img/todo-03.jpg"></a>
-                                    </div>
-                                    <div class="cat-list-item-r">
-                                        <div class="cat-list-item-rb">
-                                            <div class="cat-list-item-p">
-                                                <div class="cat-list-content">
-                                                    <div class="cat-list-content-a">
-                                                        <div class="cat-list-content-l">
-                                                            <div class="cat-list-content-lb">
-                                                                <div class="cat-list-content-lpadding">
-                                                                    <div class="offer-slider-link"><a href="#">Dolores eos
-                                                                            qui ratione voluptatem</a></div>
-                                                                    <div class="offer-rate">Exelent</div>
-                                                                    <p>Voluptatem quia voluptas sit aspernatur aut odit aut
-                                                                        figut, sed quia consequuntur magni dolores eos qui
-                                                                        voluptatem sequi nescuint. Neque porro quisqua. Sed
-                                                                        ut perspiciatis unde omnis ste.</p>
-                                                                </div>
-                                                            </div>
-                                                            <br class="clear">
-                                                        </div>
-                                                    </div>
-                                                    <div class="cat-list-content-r">
-                                                        <div class="cat-list-content-p">
-                                                            <nav class="stars">
-                                                                <ul>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                </ul>
-                                                                <div class="clear"></div>
-                                                            </nav>
-                                                            <div class="cat-list-review">31 reviews</div>
-                                                            <a href="#" class="todo-btn">Read more</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="clear"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br class="clear">
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <!-- \\ -->
-                                <!-- // -->
-                                <div class="cat-list-item">
-                                    <div class="cat-list-item-l">
-                                        <a href="#"><img alt="" src="assets/img/todo-04.jpg"></a>
-                                    </div>
-                                    <div class="cat-list-item-r">
-                                        <div class="cat-list-item-rb">
-                                            <div class="cat-list-item-p">
-                                                <div class="cat-list-content">
-                                                    <div class="cat-list-content-a">
-                                                        <div class="cat-list-content-l">
-                                                            <div class="cat-list-content-lb">
-                                                                <div class="cat-list-content-lpadding">
-                                                                    <div class="offer-slider-link"><a href="#">Neque porro
-                                                                            quisquaem est qui dolorem</a></div>
-                                                                    <div class="offer-rate">Exelent</div>
-                                                                    <p>Voluptatem quia voluptas sit aspernatur aut odit aut
-                                                                        figut, sed quia consequuntur magni dolores eos qui
-                                                                        voluptatem sequi nescuint. Neque porro quisqua. Sed
-                                                                        ut perspiciatis unde omnis ste.</p>
-                                                                </div>
-                                                            </div>
-                                                            <br class="clear">
-                                                        </div>
-                                                    </div>
-                                                    <div class="cat-list-content-r">
-                                                        <div class="cat-list-content-p">
-                                                            <nav class="stars">
-                                                                <ul>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                    <li><a href="#"><img alt=""
-                                                                                         src="assets/img/todostar-a.png"></a>
-                                                                    </li>
-                                                                </ul>
-                                                                <div class="clear"></div>
-                                                            </nav>
-                                                            <div class="cat-list-review">31 reviews</div>
-                                                            <a href="#" class="todo-btn">Read more</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="clear"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br class="clear">
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <!-- \\ -->
-                            </div>
-                            <a href="#" class="guest-reviews-more">Load more reviews</a>
-                        </div>
-                        <!-- \\ content-tabs-i \\ -->
-                        <!-- // content-tabs-i // -->
-                        <div class="content-tabs-i" style="display: none;">
-                            <h2>Mon Profile</h2>
-                            <form #updateForm="ngForm">
-                                <table class="col-md-12 table table-bordered">
-                        
-                                    <thead>
-                                    <th></th>
-                                    <th class="col-md-5" style="text-align: center"><h3>Valeurs Actuel</h3></th>
-                                    <th class="col-md-5" style="text-align: center"><h3>Modifications</h3></th>
-                                    </thead>
-                        
-                                    <tbody>
-                        
-                                    <tr>
-                                        <td>Nom</td>
-                                        <td> sessionPersonne.per_att_nom </td>
-                                        <td><input type="text" class="col-md-12" ngModel #nom="ngModel" name="nom"
-                                                   value=" sessionPersonne.per_att_nom "></td>
-                                    </tr>
-                                    <tr>
-                                        <td> Prenom</td>
-                                        <td> sessionPersonne.per_att_prenom </td>
-                                        <td><input type="text" class="col-md-12" ngModel #prenom="ngModel" name="prenom"
-                                                   required value=" sessionPersonne.per_att_prenom "></td>
-                                    </tr>
-                                    <tr>
-                                        <td> Pays</td>
-                                        <td> sessionPersonne.per_att_pays </td>
-                                        <td><input type="text" class="col-md-12" #pays="ngModel" ngModel name="pays"
-                                                   required value=" sessionPersonne.per_att_pays "></td>
-                                    </tr>
-                                    <!--  <tr>
-                                      <td> Civilité </td>
-                                      <td> sessionPersonne.per_att_civilite </td>
-                                      <td><select ngModel name="civilite" #civilite="ngModel" required>
-
-                                      </select></td>
-                                  </tr>-->
-                                    <tr>
-                                        <td> Email</td>
-                                        <td> sessionPersonne.per_att_email </td>
-                                        <td><input type="text" class="col-md-12" #email name="email"
-                                                   pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-                                                   value=" sessionPersonne.per_att_email "></td>
-                                    </tr>
-                                    <tr>
-                                        <td> Nationalité</td>
-                                        <td> sessionPersonne.per_att_nationalite </td>
-                                        <td><input type="text" class="col-md-12" #nationnalite="ngModel" ngModel
-                                                   name="nationnalite" value=" sessionPersonne.per_att_nationalite ">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> Photo de Profile</td>
-                                        <td><img src="assets/img/ sessionUser.use_att_profile " style="height: 40px">
-                                        </td>
-                                        <td><input type="file" ngModel name="profil" #profile="ngModel" class="col-md-12">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> Langue d'affichage</td>
-                                        <td> sessionUser.use_att_langue </td>
-                                        <td><!-- Select Basic -->
-                                            <div class="col-md-8">
-                                                <select id="selectbasic" #langue="ngModel" ngModel name="langue"
-                                                        class="form-control">
-                                                    <option value="fr">Francais</option>
-                                                    <option value="en">English</option>
-                                                    <option value="dt">Deucth</option>
-                                                    <option value="ch">Chinois</option>
-                                                    <option value="au">Autre..</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                        
-                                    </tbody>
-                    
-                                </table>
-                                <button name="valider" value="Valider" class="btn-success btn" style="float: right"
-                                        (click)="update(nom.value,prenom.value,person.per_att_telephone,person.per_att_date_de_naaiss,person.per_att_sexe,email.value,user.use_att_login,user.use_att_password,nationnalite.value,langue.value,pays.value,profile.value)">
-                                    Valider
-                                </button>
-                            </form>
-            
-                        </div>
-                        <!-- \\ content-tabs-i \\ -->
-                        <!-- // content-tabs-i // -->
-                        <div class="content-tabs-i" style="display: none;">
-                            <h2>FAQ</h2>
-                            <p class="small">Voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                                consequuntur magni dolores eos qui voluptatem sequi nesciunt. </p>
-                            <div class="todo-devider"></div>
-                            <div class="faq-row">
-                                <!-- // -->
-                                <div class="faq-item">
-                                    <div class="faq-item-a">
-                                        <span class="faq-item-left">Totam rem aperiam, eaquie ipsa quae?</span>
-                                        <span class="faq-item-i"></span>
-                                        <div class="clear"></div>
-                                    </div>
-                                    <div class="faq-item-b">
-                                        <div class="faq-item-p">
-                                            Voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia aspernatur
-                                            aut odit aut fugit consequuntur magni dolores eos qui voluptatem sequi nesciunt.
-                                            aspernatur aut odit aut fugit
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- \\ -->
-                                <!-- // -->
-                                <div class="faq-item">
-                                    <div class="faq-item-a">
-                                        <span class="faq-item-left">Dolores eos qui ratione voluptatem sequi nescuin?</span>
-                                        <span class="faq-item-i"></span>
-                                        <div class="clear"></div>
-                                    </div>
-                                    <div class="faq-item-b">
-                                        <div class="faq-item-p">
-                                            Voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia aspernatur
-                                            aut odit aut fugit consequuntur magni dolores eos qui voluptatem sequi nesciunt.
-                                            aspernatur aut odit aut fugit
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- \\ -->
-                                <!-- // -->
-                                <div class="faq-item">
-                                    <div class="faq-item-a">
-                                        <span class="faq-item-left">Neque porro quisquam est, qui dolorem ipsum?</span>
-                                        <span class="faq-item-i"></span>
-                                        <div class="clear"></div>
-                                    </div>
-                                    <div class="faq-item-b">
-                                        <div class="faq-item-p">
-                                            Voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia aspernatur
-                                            aut odit aut fugit consequuntur magni dolores eos qui voluptatem sequi nesciunt.
-                                            aspernatur aut odit aut fugit
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- \\ -->
-                                <!-- // -->
-                                <div class="faq-item">
-                                    <div class="faq-item-a">
-                                        <span class="faq-item-left">Dolor sit amet consectutur adipisci velit, sed?</span>
-                                        <span class="faq-item-i"></span>
-                                        <div class="clear"></div>
-                                    </div>
-                                    <div class="faq-item-b">
-                                        <div class="faq-item-p">
-                                            Voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia aspernatur
-                                            aut odit aut fugit consequuntur magni dolores eos qui voluptatem sequi nesciunt.
-                                            aspernatur aut odit aut fugit
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- \\ -->
-                                <!-- // -->
-                                <div class="faq-item">
-                                    <div class="faq-item-a">
-                                        <span class="faq-item-left">Consectetur, adipisci velit, sed quia non numquam?</span>
-                                        <span class="faq-item-i"></span>
-                                        <div class="clear"></div>
-                                    </div>
-                                    <div class="faq-item-b">
-                                        <div class="faq-item-p">
-                                            Voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia aspernatur
-                                            aut odit aut fugit consequuntur magni dolores eos qui voluptatem sequi nesciunt.
-                                            aspernatur aut odit aut fugit
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- \\ -->
-                            </div>
-                        </div>
-                        <!-- \\ content-tabs-i \\ -->
-        
-                    </div>
-                </div>
             </div>
     
             <div class="col-md-4 col-sm-12 pull-right">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h1 class="page-header small">Details Personels</h1>
+                        <h4>Details Personel</h4>
                     </div>
                     <div class="col-md-12 photolist">
                         <ul class="nav">
-                            <li><span class="usr-legend">NOM : </span> <span class="info-usr"> sessionPersonne.per_att_nom </span>
+                            <li><span class="usr-legend"> NOM : </span> <span class="info-usr" style="text-transform: capitalize;"> {{$user->username}} </span>
                             </li>
-                            <li><span class="usr-legend">PRENOM : </span> <span class="info-usr"> sessionPersonne.per_att_prenom </span>
+                            <li><span class="usr-legend"> Pseudo : </span> <span class="info-usr" style="text-transform: capitalize;"> {{$user->pseudo}} </span>
                             </li>
-                            <li><span class="usr-legend">Email : </span> <span class="info-usr"> sessionPersonne.per_att_email </span>
+                            <li><span class="usr-legend">Email : </span> <span class="info-usr"> {{$user->email}} </span>
                             </li>
-                            <li><span class="usr-legend">Membre depuis le : </span> <span class="info-usr"> sessionUser.created_at </span>
+                            <li><span class="usr-legend">Membre depuis le : </span> <span class="info-usr"> {{formatDate($user->created_at)}} </span>
                             </li>
                         </ul>
                     </div>
@@ -704,10 +219,9 @@
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h1 class="page-header small">Worked with many domain</h1>
-                        <p class="page-subtitle small">Like to work fr different business</p>
+                        <h4>Palmares et Victoires</h4>
                     </div>
-                    <div class="col-md-12">
+                    <div class="">
                         <ul class="list-group">
                             <li class="list-group-item"><span class="fa fa-male"></span> Worked with 1000+ people</li>
                             <li class="list-group-item"><span class="fa fa-institution"></span> 60+ offices</li>
@@ -724,7 +238,10 @@
             </div>
         </div>
     </div>
+
     
+    {{--Modal. Elle ne s'affiche que pour ajouter des photos--}}
+    @include('frontend.profile.add_profile_popup')
 @endsection
 
 @section('customScripts')
@@ -747,5 +264,22 @@
         function showPencil(){
             $('#chg_baniere').css('display','block');
         }
+
+        $(document).ready(function () {
+            $('.image-editor').cropit();
+        });
+        $('#inpt-btn-click').on("click" , function () {
+            $('#inpt-btn').click();
+        });
+        $('.inpt-btn-click').on("click" , function () {
+            $('#inpt-btn2').click();
+        });
+
+        $("#foto_chg").click(function(){
+            $("#photo_profile").modal();
+        });
+        $("#chg_baniere").click(function(){
+            $("#baniere").modal();
+        });
     </script>
     @stop

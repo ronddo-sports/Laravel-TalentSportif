@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'MainController@welcome');
 
 \Illuminate\Support\Facades\Auth::routes();
 
@@ -30,6 +28,7 @@ Route::get('/profile/{key}', 'Frontend\_UserController@show')->name('profile');
 Route::get('regarde', function (){return view('frontend.media.LectureVideo');})->name('lectureVid');
 Route::get('about', function (){return view('frontend.about.about');})->name('about');
 
+Route::get('search', 'Frontend\_searchController@index')->name('general.search');
 
 
 Route::group(['middleware' => 'authentic','prefix'=>'admin','roles' => ['admin']],function (){
@@ -45,6 +44,8 @@ Route::group(['middleware' => 'authentic','prefix'=>'admin','roles' => ['admin']
     includeRouteFiles(__DIR__.'/admin/');
 
 });
+
+
 
 includeRouteFiles(__DIR__.'/frontend/');
 

@@ -3,9 +3,12 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Medium extends Model
 {
+
+    use SoftDeletes;
     /**
      * The database table used by the model.
      *
@@ -27,7 +30,7 @@ class Medium extends Model
      */
     protected $fillable = ['titre', 'description', 'discr', 'user_id','album_id'];
 
-    protected $dates = ['created_at','updated_at'];
+    protected $dates = ['created_at','updated_at','deleted_at'];
 
     
 }

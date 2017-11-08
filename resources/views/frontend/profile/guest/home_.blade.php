@@ -38,9 +38,9 @@
         <div class="">
             <div class="text-center ">
                 <div class="panel-default">
-                    <div class="userprofile social " style="background: url('/imag/default_ban.jpg') no-repeat top center; background-size: 100%; padding: 50px 0;
+                    <div class="userprofile social " style="background: url('{{banierePicFromUserId($user->id).'?w=1200&h=300&fit=crop'}}') no-repeat top center; background-size: 100%; padding: 50px 0;
     margin: 0;">
-                        <div class="userpic"><img src="/imag/default.jpg" class="userpicimg" style=""></div>
+                        <div class="userpic"><img src="{{ profilePicFromUserId($user->id).'?w=400&h=300&fit=crop' }}" class="userpicimg" style=""></div>
                         <h3 class="username"> {{$user->username  ? $user->username : $user->pseudo}} </h3>
                     </div>
                     <div class="clearfix"></div>
@@ -192,7 +192,7 @@
                                     
                                     <tr>
                                         <td>Date de Naissance</td>
-                                        <td>{{($user->date_naiss)->format('d M Y')}}</td>
+                                        <td>{{@$user->date_naiss}}</td>
                                     </tr>
                                     
                                     <tr>
@@ -201,7 +201,7 @@
                                     </tr>
                                     <tr>
                                         <td>Membre depuis : </td>
-                                        <td>{{($user->created_at)->format('d M Y H:m')}}</td>
+                                        <td>{{$user->created_at}}</td>
                                     </tr>
                                     <tr>
                                         <td>Email</td>

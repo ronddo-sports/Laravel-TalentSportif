@@ -10,7 +10,7 @@
         <div class="panel-title">SUR TALENTSPORTIF</div>
         <ul class="nav sidebar-nav menu-rigth">
             <li>
-                <a href="#item1"><img src="/icon/ACCUEIL.png"> Accueil</a>
+                <a href="/"><img src="/icon/ACCUEIL.png"> Accueil</a>
             </li>
             <li>
                 <a href="#item2"><img src="/icon/VIDEO.png"> Videos</a>
@@ -18,14 +18,20 @@
             <li>
                 <a href="#item3"><img src="/icon/PHOTO.png"> Photos</a>
             </li>
+            @if(!Auth::check())
             <li>
-                <a href="#item3"><img src="/icon/MESSAGE.png"> Messages recu</a>
+                <a href="/login"><img src="/icon/MESSAGE.png"> Messages recu</a>
+            </li>
+            
+            <li>
+                <a href="/login"><img src="/icon/MES%20FAN.png"> Mes fans</a>
+            </li>
+            @endif
+            <li>
+                <a href="#"><img src="/icon/actu.png"> Abonnees TS</a>
             </li>
             <li>
-                <a href="#item3"><img src="/icon/MES%20FAN.png"> Mes fans</a>
-            </li>
-            <li>
-                <a href="#item3"><img src="/icon/actu.png"> Abonnees TS</a>
+                <a href="/about"><i class="glyphicon glyphicon-question-sign"></i>  A propos</a>
             </li>
         </ul>
     </div>

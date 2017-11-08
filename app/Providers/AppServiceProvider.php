@@ -30,8 +30,8 @@ class AppServiceProvider extends ServiceProvider
 
 
             return ServerFactory::create([
-                'source' => storage_path('/media/image'),
-                'cache' => storage_path('/media/image/.cache'),
+                'source' => storage_path('/app/image'),
+                'cache' => storage_path('/app/image/.cache'),
                 'cache_path_prefix' => '.cache',
                 'base_url' => '/img/'
             ]);

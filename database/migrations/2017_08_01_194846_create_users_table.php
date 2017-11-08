@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('confirmation_token')->nullable();
             $table->string('remember_token')->nullable();
             $table->date('password_requested_at')->nullable();
-            $table->date('last_login')->nullable();
+            $table->timestamp('last_login')->nullable();
             $table->date('date_naiss');
             $table->text('description')->nullable();
             $table->string('discipline');
@@ -42,6 +42,7 @@ class CreateUsersTable extends Migration
             $table->foreign('group_id')->references('id')->on('user_groups')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('user_group_id')->references('id')->on('user_status')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

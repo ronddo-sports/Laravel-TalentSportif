@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Album extends Model
 {
@@ -11,6 +12,8 @@ class Album extends Model
      *
      * @var string
      */
+    use SoftDeletes;
+
     protected $table = 'albums';
 
     /**
@@ -18,6 +21,8 @@ class Album extends Model
     *
     * @var string
     */
+    protected $dates = ['created_at','updated_at','deleted_at'];
+
     protected $primaryKey = 'id';
 
     /**
@@ -25,7 +30,7 @@ class Album extends Model
      *
      * @var array
      */
-    protected $fillable = ['owner_id','owner_table','name','del','active','user_id'];
+    protected $fillable = ['owner_id','name_canonical','owner_table','name','del','active','user_id'];
 
     public function user()
 	{

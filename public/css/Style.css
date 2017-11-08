@@ -11,7 +11,7 @@ body{
 .connected{
     position: absolute;
     left: 61%;
-    top: 37px;
+    top: 30px;
     background: #298ffd;
     padding: 0;
     margin: 0;
@@ -40,6 +40,14 @@ a,a:hover{
     height: 37px;
     border: 2px solid lemonchiffon;
     background: #298ffd;
+}
+.space1 a{
+    color: #fff;
+    padding: 6px 0;
+    display: block;
+}
+.space1 a:hover{
+    color: #ff2c2c;
 }
 .msg-recu img {
     height: 20px;
@@ -329,6 +337,7 @@ body {
     background: none;
 }
 
+
 @media(min-width:768px) {
     #wrapper {
         padding-left: 0;
@@ -370,7 +379,7 @@ a#menu-toggl.onContent {
     color: #fff;
     position: fixed;
     padding: 6px;
-    z-index: 1;
+    z-index: 12;
     display: none;
 }
 /**** * End side bar statique*/
@@ -637,3 +646,15 @@ li.dropdown {
 }
 /*** End Footer */
 
+@media(max-width:700px) {
+    #main-content {
+        width: 98%;
+        margin: 1%;
+    }
+
+    #side-bar-rigth {
+        width: 98%;
+        margin: 1%;
+        float: none;
+    }
+}
