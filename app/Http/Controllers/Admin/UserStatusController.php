@@ -63,7 +63,7 @@ class UserStatusController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time(). '.' . $image->getClientOriginalExtension();
-            $temp = Image::make($image)->save(storage_path('/media/image/status/' . $filename));
+            $temp = Image::make($image)->save(storage_path('app/image/status/' . $filename));
             $requestData = $request->all();
             $requestData['type'] = str_replace(' ','_',$request->nom);
             $requestData['logo_url'] = '/img/status/'.$filename;

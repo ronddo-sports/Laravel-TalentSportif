@@ -25,7 +25,7 @@ class Fan extends Model
      *
      * @var array
      */
-    protected $fillable = ['star_id', 'fan_id'];
+    protected $fillable = ['star_id', 'fan_id', 'star_block','fan_block'];
 
     
 }

@@ -167,6 +167,7 @@ return [
         Cmgmyr\Messenger\MessengerServiceProvider::class,
         App\Providers\CustomAuthProvider::class,
         Dawson\Youtube\YoutubeServiceProvider::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
         /*
          * Package Service Providers...
