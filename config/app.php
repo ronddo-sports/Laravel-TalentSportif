@@ -169,6 +169,7 @@ return [
         Dawson\Youtube\YoutubeServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */

@@ -13,6 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('Auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group([],function (){
+    includeRouteFiles(__DIR__.'/api/');
+});
+
+

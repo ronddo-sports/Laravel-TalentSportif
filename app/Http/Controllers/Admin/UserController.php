@@ -173,7 +173,7 @@ class UserController extends Controller
         $qry = UserStatus::where('id','=',$id);
         if ($qry->count() > 0){
             $status = $qry->first();
-            return view('auth.register', compact('status'));
+            return view('Auth.register', compact('status'));
         }
         return redirect(route('etape_une'));
     }

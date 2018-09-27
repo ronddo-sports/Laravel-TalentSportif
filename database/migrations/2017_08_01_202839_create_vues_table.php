@@ -15,6 +15,7 @@ class CreateVuesTable extends Migration
         Schema::create('vues', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('media_id')->unsigned();
+            $table->integer('view_number')->default(0);
             $table->integer('user_id')->unsigned();
             $table->foreign('media_id')->references('id')->on('users');
             $table->foreign('user_id')->references('id')->on('users');

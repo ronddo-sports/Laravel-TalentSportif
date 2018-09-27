@@ -6,6 +6,9 @@
  * Time: 22:52
  */
 // Authentication Routes...
+Route::group([
+    'guard'=>'web'
+],function (){
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
@@ -21,5 +24,6 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 /*custom two step registration */
-Route::get('/inscription/step_one',function (){return view('auth.register_1');})->name('etape_une');
+Route::get('/inscription/step_one',function (){return view('Auth.register_1');})->name('etape_une');
 Route::post('/regin', 'Admin\UserController@step_one')->name('ragister.step.1');
+});

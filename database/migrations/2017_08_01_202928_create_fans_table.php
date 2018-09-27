@@ -17,8 +17,7 @@ class CreateFansTable extends Migration
             $table->integer('star_id')->unsigned();
             $table->integer('fan_id')->unsigned();
             $table->smallInteger('star_block')->default(false);
-            $table->smallInteger('star_block')->default(false);
-            $table->integer('fan_id')->unsigned();
+            $table->smallInteger('fan_block')->default(false);
             $table->foreign('star_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('fan_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

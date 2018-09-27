@@ -16,9 +16,10 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('username');
             $table->string('username_canonical');
-            $table->string('pseudo')->nullable();
+            $table->string('pseudo');
             $table->string('email');
             $table->string('password');
+            $table->string('api_token');
             $table->string('confirmation_token')->nullable();
             $table->string('remember_token')->nullable();
             $table->date('password_requested_at')->nullable();
@@ -32,6 +33,8 @@ class CreateUsersTable extends Migration
             $table->string('adresse')->nullable();
             $table->integer('status')->nullable();
             $table->string('discr');
+            $table->text('parcours')->nullable();
+            $table->text('palmares')->nullable();
             $table->string('salt')->nullable();
             $table->boolean('enabled')->default(false);
 

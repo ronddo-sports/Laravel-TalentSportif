@@ -122,7 +122,7 @@ if (! function_exists('banierePicFromUserId')) {
        if($qry->count() > 0){
            return $qry->first()['url'];
        }
-           return '/img/default_ban.jpg';
+           return '/img/default_ban'.random_int(1,5).'.png';
     }
 }
 

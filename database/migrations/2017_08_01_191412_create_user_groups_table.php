@@ -18,7 +18,6 @@ class CreateUserGroupsTable extends Migration
             $table->string('institution')->nullable();
             $table->integer('user_institution_id')->unsigned()->nullable();
             $table->integer('user_id')->unsigned();
-
             $table->foreign('user_institution_id')->references('id')->on('user_institutions')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
