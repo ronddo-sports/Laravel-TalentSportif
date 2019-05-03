@@ -31,7 +31,7 @@ class UserTableseeder extends Seeder
         $user->roles()->attach($role_admin);
 
 
-        Album::create(['owner_id'=>$user->id,'owner_table'=>'users',
+        Album::create(['user_id'=>$user->id,'post_id'=> 0,
             'name'=>'uploads','name_canonical'=>'uploads']);
         $user0 = new User();
         $user0->username = 'Jean Louis';
@@ -40,12 +40,12 @@ class UserTableseeder extends Seeder
         $user0->api_token = 'jean_louis_'.str_random(10);
         $user0->discr = 'admin';
         $user0->discipline = 'administration';
-        $user0->date_naiss = new DateTime();
+        $user0->date_naiss = new DateTime("2012-03-10");
         $user0->email = 'talentsportif@gmail.com';
         $user0->password = bcrypt('passe');
         $user0->save();
         $user0->roles()->attach($role_admin);
-        Album::create(['owner_id'=>$user0->id,'owner_table'=>'users',
+        Album::create(['user_id'=>$user0->id,'post_id'=>0,
             'name'=>'uploads','name_canonical'=>'uploads']);
 
         $user = new User();
@@ -60,7 +60,7 @@ class UserTableseeder extends Seeder
         $user->password = bcrypt('passe');
         $user->save();
         $user->roles()->attach($role_visit);
-        Album::create(['owner_id'=>$user->id,'owner_table'=>'users',
+        Album::create(['user_id'=>$user->id,'post_id'=>0,
             'name'=>'uploads','name_canonical'=>'uploads']);
 
         $user = new User();
@@ -75,7 +75,7 @@ class UserTableseeder extends Seeder
         $user->password = bcrypt('passe');
         $user->save();
         $user->roles()->attach($role_visit);
-        Album::create(['owner_id'=>$user->id,'owner_table'=>'users',
+        Album::create(['user_id'=>$user->id,'post_id'=>0,
             'name'=>'uploads','name_canonical'=>'uploads']);
 
         $user = new User();
@@ -90,7 +90,7 @@ class UserTableseeder extends Seeder
         $user->password = bcrypt('passe');
         $user->save();
         $user->roles()->attach($role_visit);
-        Album::create(['owner_id'=>$user->id,'owner_table'=>'users',
+        Album::create(['user_id'=>$user->id,'post_id'=>0,
             'name'=>'uploads','name_canonical'=>'uploads']);
 
         $user = new User();
@@ -105,7 +105,7 @@ class UserTableseeder extends Seeder
         $user->password = bcrypt('passe');
         $user->save();
         $user->roles()->attach($role_visit);
-        Album::create(['owner_id'=>$user->id,'owner_table'=>'users',
+        Album::create(['user_id'=>$user->id,'post_id'=>0,
             'name'=>'uploads','name_canonical'=>'uploads']);
 
         $user = new User();
@@ -120,7 +120,7 @@ class UserTableseeder extends Seeder
         $user->password = bcrypt('passe');
         $user->save();
         $user->roles()->attach($role_visit);
-        Album::create(['owner_id'=>$user->id,'owner_table'=>'users',
+        Album::create(['user_id'=>$user->id,'post_id'=>0,
             'name'=>'uploads','name_canonical'=>'uploads']);
 
     }

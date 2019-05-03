@@ -22,35 +22,59 @@
                             Creation Video
                         </h2>
 
-                         <a href="{{ url('/admin/video') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                         <a href="{{ url('/admin/video/' . $video->id . '/edit') }}" title="Edit Video"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                        <a href="{{ url('/admin/video') }}" title="Back">
+                            <button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+                                Back
+                            </button>
+                        </a>
+                        <a href="{{ url('/admin/video/' . $video->id . '/edit') }}" title="Edit Video">
+                            <button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o"
+                                                                      aria-hidden="true"></i> Edit
+                            </button>
+                        </a>
 
                     </div>
-                        {!! Form::open([
-                            'method'=>'DELETE',
-                            'url' => ['admin/video', $video->id],
-                            'style' => 'display:inline'
-                        ]) !!}
-                            {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
-                                    'type' => 'submit',
-                                    'class' => 'btn btn-danger btn-xs',
-                                    'title' => 'Delete Video',
-                                    'onclick'=>'return confirm("Confirm delete?")'
-                            ))!!}
-                        {!! Form::close() !!}
-                        <br/>
-                        <br/>
+                    {!! Form::open([
+                        'method'=>'DELETE',
+                        'url' => ['admin/video', $video->id],
+                        'style' => 'display:inline'
+                    ]) !!}
+                    {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
+                            'type' => 'submit',
+                            'class' => 'btn btn-danger btn-xs',
+                            'title' => 'Delete Video',
+                            'onclick'=>'return confirm("Confirm delete?")'
+                    ))!!}
+                    {!! Form::close() !!}
+                    <br/>
+                    <br/>
 
-                        <div class="table-responsive">
-                            <table class="table table-borderless">
-                                <tbody>
-                                    <tr>
-                                        <th>ID</th><td>{{ $video->id }}</td>
-                                    </tr>
-                                    <tr><th> Url </th><td> {{ $video->url }} </td></tr><tr><th> Duree </th><td> {{ $video->duree }} </td></tr><tr><th> Media Id </th><td> {{ $video->media_id }} </td></tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table table-borderless">
+                            <tbody>
+                            <tr>
+                                <th>ID</th>
+                                <td>{{ $video->id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Type</th>
+                                <td>{{ $video->type }}</td>
+                            </tr>
+                            <tr>
+                                <th> Url</th>
+                                <td> {{ $video->url }} </td>
+                            </tr>
+                            <tr>
+                                <th> Duree</th>
+                                <td> {{ $video->duree }} </td>
+                            </tr>
+                            <tr>
+                                <th> Media Id</th>
+                                <td> {{ $video->media_id }} </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
                 </div>
             </div>

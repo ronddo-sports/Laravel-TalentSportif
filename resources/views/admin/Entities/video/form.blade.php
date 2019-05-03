@@ -4,7 +4,8 @@
         {!! Form::text('url', null, ['class' => 'form-control', 'required' => 'required']) !!}
         {!! $errors->first('url', '<p class="help-block">:message</p>') !!}
     </div>
-</div><div class="form-group {{ $errors->has('duree') ? 'has-error' : ''}}">
+</div>
+<div class="form-group {{ $errors->has('duree') ? 'has-error' : ''}}">
     {!! Form::label('duree', 'Duree', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         {!! Form::text('duree', null, ['class' => 'form-control']) !!}

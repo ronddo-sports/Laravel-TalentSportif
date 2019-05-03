@@ -11,7 +11,7 @@
                 <a href="#"><i class="fa fa-circle text-success"></i> En line</a>
             </div>
         </div>
-        <!-- search form -->
+        <!-- search form --
         <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
                 <input type="text" name="q" class="form-control" placeholder="Search...">
@@ -37,6 +37,9 @@
                     <li><a href="{{route('dashboard')}}"><i class="fa fa-circle-o"></i> Probabilités</a></li>
                 </ul>
             </li>
+            <li><a href="/admin/status"><i class="fa fa-circle-o text-red"></i> <span>Statuts TS</span></a></li>
+            <li><a href="/admin/users"><i class="fa fa-circle-o text-red"></i> <span>Utilisateurs</span></a></li>
+            <li><a href="/admin/media"><i class="fa fa-circle-o text-red"></i> <span>Medias TS</span></a></li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-files-o"></i>

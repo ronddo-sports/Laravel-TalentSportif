@@ -31,7 +31,7 @@ class MediaController extends Controller
             $media = Medium::paginate($perPage);
         }
 
-        return view('admin.media.index', compact('media'));
+        return view('admin.Entities.media.index', compact('media'));
     }
 
     /**
@@ -41,7 +41,7 @@ class MediaController extends Controller
      */
     public function create()
     {
-        return view('admin.media.create');
+        return view('admin.Entities.media.create');
     }
 
     /**
@@ -54,7 +54,7 @@ class MediaController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-			'title' => 'required',
+			'titre' => 'required',
 			'description' => 'max:300',
 			'discr' => 'required'
 		]);
@@ -106,8 +106,8 @@ class MediaController extends Controller
     public function update($id, Request $request)
     {
         $this->validate($request, [
-			'title' => 'required',
-			'description' => 'max:300',
+			'titre' => 'required',
+			'description' => 'max:1000',
 			'discr' => 'required'
 		]);
         $requestData = $request->all();

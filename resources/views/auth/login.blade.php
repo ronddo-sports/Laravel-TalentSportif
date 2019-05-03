@@ -1,6 +1,6 @@
-@extends('frontend.Layouts._Layout')
+@extends('admin.Layouts.secondLayout')
 
-@section('content')
+@section('body')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -57,7 +57,7 @@
                                 {{--<a class="btn btn-link" href="{{ route('password.request') }}">
                                     Forgot Your Password?
                                 </a>--}}
-                                
+
                                 <a class="btn btn-link" href="{{ route('register') }}">
                                     Créer mon compte..
                                 </a>

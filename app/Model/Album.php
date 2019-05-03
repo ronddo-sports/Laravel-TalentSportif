@@ -2,15 +2,17 @@
 
 namespace App\Model;
 
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Album extends Model
 {
     /**
-     * The database table used by the model.
+     * Show all of the message threads to the user.
      *
-     * @var string
+     * @return mixed
      */
     use SoftDeletes;
 
@@ -21,7 +23,7 @@ class Album extends Model
     *
     * @var string
     */
-    protected $dates = ['created_at','updated_at','deleted_at'];
+    protected $dates = ['created_at','updated_at','parent_id','deleted_at'];
 
     protected $primaryKey = 'id';
 
@@ -30,7 +32,7 @@ class Album extends Model
      *
      * @var array
      */
-    protected $fillable = ['owner_id','name_canonical','owner_table','name','del','active','user_id'];
+    protected $fillable = ['name','name_canonical','auto_generated','user_id','post_id','active'];
 
     public function user()
 	{

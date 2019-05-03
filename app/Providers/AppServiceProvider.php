@@ -37,10 +37,6 @@ class AppServiceProvider extends ServiceProvider
             ]);
         });
 
-        //end glide
 
-//        if ($this->app->environment() == 'local') {
-//            $this->app->register('Appzcoder\CrudGenerator\CrudGeneratorServiceProvider');
-//        }
     }
 }

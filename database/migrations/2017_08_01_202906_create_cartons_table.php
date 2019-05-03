@@ -15,10 +15,10 @@ class CreateCartonsTable extends Migration
         Schema::create('cartons', function(Blueprint $table) {
             $table->increments('id');
             $table->enum('couleur',[0,1,2]);
-            $table->integer('media_id')->unsigned();
+            $table->integer('post_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('media_id')->references('id')->on('medias');
+            $table->foreign('post_id')->references('id')->on('medias');
             $table->timestamps();
         });
     }

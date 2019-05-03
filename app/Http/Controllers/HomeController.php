@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        return view('frontend.profile.Auth.home');
+        return view('admin.dashboard');
     }
 
 

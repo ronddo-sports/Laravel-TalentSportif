@@ -25,7 +25,7 @@ class Carton extends Model
      *
      * @var array
      */
-    protected $fillable = ['couleur', 'media_id', 'user_id'];
+    protected $fillable = ['couleur', 'post_id', 'user_id'];
 
     
 }

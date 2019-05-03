@@ -25,7 +25,7 @@ class Vue extends Model
      *
      * @var array
      */
-    protected $fillable = ['media_id', 'user_id'];
+    protected $fillable = ['post_id', 'user_id'];
 
     
 }

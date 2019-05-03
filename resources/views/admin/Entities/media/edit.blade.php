@@ -40,7 +40,7 @@
                             'files' => true
                         ]) !!}
 
-                        @include ('admin.media.form', ['submitButtonText' => 'Update'])
+                        @include ('admin.Entities.media.form', ['submitButtonText' => 'Update'])
 
                         {!! Form::close() !!}
 

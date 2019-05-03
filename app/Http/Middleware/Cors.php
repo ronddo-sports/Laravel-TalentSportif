@@ -14,10 +14,31 @@ class Cors
 {
     public function handle($request, Closure $next)
     {
+        if ($request->getMethod() == "OPTIONS") {
+            return response(['ok'], 200)->withHeaders([
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE,Tidjani',
+                'Access-Control-Allow-Credentials' => true,
+                'Access-Control-Allow-Headers' => 'Authorization, Content-Type',
+            ]);
+        }
+
         return $next($request)
             ->header('Access-Control-Allow-Origin', '*')
-            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-            //->header('Access-Control-Allow-Headers: Origin, Content-Type, x-xsrf-token, xsrf-token, Authorization')
-            ;
+            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+            ->header('Access-Control-Allow-Credentials', true)
+            ->header('Access-Control-Allow-Headers', 'Authorization,Content-Type');
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

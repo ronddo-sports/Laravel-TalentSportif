@@ -1,6 +1,6 @@
-@extends('frontend.Layouts._Layout')
+@extends('admin.Layouts.secondLayout')
 
-@section('content')
+@section('body')
 <div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">

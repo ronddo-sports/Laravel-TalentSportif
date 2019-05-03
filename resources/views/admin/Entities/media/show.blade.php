@@ -22,35 +22,59 @@
                             Creation Medium
                         </h2>
 
-                         <a href="{{ url('/admin/media') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                         <a href="{{ url('/admin/media/' . $medium->id . '/edit') }}" title="Edit Medium"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                        <a href="{{ url('/admin/media') }}" title="Back">
+                            <button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+                                Back
+                            </button>
+                        </a>
+                        <a href="{{ url('/admin/media/' . $medium->id . '/edit') }}" title="Edit Medium">
+                            <button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o"
+                                                                      aria-hidden="true"></i> Edit
+                            </button>
+                        </a>
 
                     </div>
-                        {!! Form::open([
-                            'method'=>'DELETE',
-                            'url' => ['admin/media', $medium->id],
-                            'style' => 'display:inline'
-                        ]) !!}
-                            {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
-                                    'type' => 'submit',
-                                    'class' => 'btn btn-danger btn-xs',
-                                    'title' => 'Delete Medium',
-                                    'onclick'=>'return confirm("Confirm delete?")'
-                            ))!!}
-                        {!! Form::close() !!}
-                        <br/>
-                        <br/>
+                    {!! Form::open([
+                        'method'=>'DELETE',
+                        'url' => ['admin/media', $medium->id],
+                        'style' => 'display:inline'
+                    ]) !!}
+                    {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
+                            'type' => 'submit',
+                            'class' => 'btn btn-danger btn-xs',
+                            'title' => 'Delete Medium',
+                            'onclick'=>'return confirm("Confirm delete?")'
+                    ))!!}
+                    {!! Form::close() !!}
+                    <br/>
+                    <br/>
 
-                        <div class="table-responsive">
-                            <table class="table table-borderless">
-                                <tbody>
-                                    <tr>
-                                        <th>ID</th><td>{{ $medium->id }}</td>
-                                    </tr>
-                                    <tr><th> Titre </th><td> {{ $medium->titre }} </td></tr><tr><th> Description </th><td> {{ $medium->description }} </td></tr><tr><th> Discr </th><td> {{ $medium->discr }} </td></tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table table-borderless">
+                            <tbody>
+                            <tr>
+                                <th>ID</th>
+                                <td>{{ $medium->id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Type</th>
+                                <td>{{ $video->type }}</td>
+                            </tr>
+                            <tr>
+                                <th> Titre</th>
+                                <td> {{ $medium->titre }} </td>
+                            </tr>
+                            <tr>
+                                <th> Description</th>
+                                <td> {{ $medium->description }} </td>
+                            </tr>
+                            <tr>
+                                <th> Discr</th>
+                                <td> {{ $medium->discr }} </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
                 </div>
             </div>

@@ -12,7 +12,12 @@ use Illuminate\Support\Facades\DB;
 class MainController extends Controller
 {
 
-    public function welcome() {
+    public function welcome()
+    {
+        return view('admin.dashboard');
+    }
+
+    /*public function welcome() {
 
        $paginate = 3;
 
@@ -28,10 +33,10 @@ class MainController extends Controller
         $merge = $albums->merge($users);
         $merge = $merge->merge($media);
         //$merge = ($albums->merge($users))->merge($media)->sortByDesc('created_at');
-        /*
-         *  custom pagination begins here because the merged
-         *  collection is not supported by the query builder pagination
-         * */
+//
+//         *  custom pagination begins here because the merged
+//         *  collection is not supported by the query builder pagination
+//         *
         $total = $merge->count();
         $maxpage = floor($total/$paginate);
         if (($total % $paginate) > 0){ $maxpage++; }
@@ -41,12 +46,12 @@ class MainController extends Controller
         }else{ $page = 1; }
         //send also the pagination data.
         $pagin = ['max'=>$maxpage,'total'=>$total,'current'=>$page];
-        /*end pagination */
+        //end pagination
         $results = $merge->forPage($page, $paginate);
         //dd($pagination_data);
         //dd($results);
         return view('welcome', compact('results','pagin'));
-    }
+    }*/
 
 
 }

@@ -44,13 +44,13 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>ID</th><th>Titre</th><th>Description</th><th>Discr</th><th>Actions</th>
+                                        <th>ID</th><th>Type</th><th>Titre</th><th>Description</th><th>Discr</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($media as $item)
                                     <tr>
-                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->id }}</td><td>{{ $item->type }}</td>
                                         <td>{{ $item->titre }}</td><td>{{ $item->description }}</td><td>{{ $item->discr }}</td>
                                         <td>
                                             <a href="{{ url('/admin/media/' . $item->id) }}" title="View Medium"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>

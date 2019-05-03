@@ -3,7 +3,10 @@
 /**
  * Global helpers file with misc functions.
  */
+use App\Model\Album;
 use App\Model\Medium;
+use App\Model\Post;
+use App\Model\User;
 
 if (! function_exists('app_name')) {
     /**
@@ -38,25 +41,27 @@ if (! function_exists('formatDate')) {
         //return ($date)->format('d M Y H:i');
     }
 }
+
 if (! function_exists('getAlbums')) {
     /**
      * Access (lol) the Access:: facade as a simple function.
      */
     function getAlbums(){
         if (Auth::check()){
-            return \App\Model\Album::where('owner_id',Auth::id())
+            return Album::where('owner_id',Auth::id())
                 ->where('owner_table','users')
                 ->where('name_canonical','<>','profile')->get();
         }
         return null;
     }
 }
+
 if (! function_exists('getAlbumFromId')) {
     /**
      * Access (lol) the Access:: facade as a simple function.
      */
     function getAlbumFromId($id){
-        $qry = \App\Model\Album::where('id',$id)
+        $qry = Album::where('id',$id)
             ->withTrashed()->where('owner_table','users');
         if ($qry->count() > 0){
             return $qry->first();
@@ -72,8 +77,6 @@ if (! function_exists('getAlbumImagesFromAlbumId')) {
     function getAlbumImagesFromAlbumId($id){
         $qry = Medium::where('discr','image')
             ->where('album_id',$id)
-            ->join('photos','media.id','=','photos.media_id')
-            ->select('photos.url')
             ->limit(4);
         if ($qry->count() > 0){
             return $qry->get();
@@ -99,9 +102,8 @@ if (! function_exists('profilePicFromUserId')) {
 
        $qry = Medium::where('user_id',$id)
            ->where('discr','profil')
-           ->where('actif',true)
-           ->join('photos','media.id','=','media_id')
-           ->select('photos.url');
+           ->where('type','image')
+           ->where('actif',true);
        if($qry->count() > 0){
            return $qry->first()['url'];
        }
@@ -116,9 +118,8 @@ if (! function_exists('banierePicFromUserId')) {
     function banierePicFromUserId($id){
        $qry = Medium::where('user_id',$id)
            ->where('discr','baniere')
-           ->where('actif',true)
-           ->join('photos','media.id','=','media_id')
-           ->select('photos.url');
+           ->where('type','image')
+           ->where('actif',true);
        if($qry->count() > 0){
            return $qry->first()['url'];
        }
@@ -205,3 +206,72 @@ if (! function_exists('getRtlCss')) {
         return implode('/', $path).'/'.$filename.'.rtl.css';
     }
 }
+
+if (! function_exists('findOrCreateAlbum')) {
+
+
+    function findOrCreateAlbumAndPost(User $user,$album_name,$post_title,$post_privacy,$post_text,$post_tags)
+    {
+        //Si c'est l'album par defaut
+        if (strtolower($album_name) == 'uploads'){
+            //On create un nouveau post pour les nouvelles tofs..
+            $post = Post::create(['titre'=>$post_title,
+                'titre_canonical'=>str_replace(" ","_",$post_title),
+                'tags'=>$post_tags,'privacy'=>$post_privacy, 'text'=>$post_text,
+                'type'=>'post', 'parent_id'=>0,
+                'user_id'=>$user->id]);
+            //Recupere l'album par defaut (uploads)
+            $qry0 = Album::where([['name','=','uploads'],['user_id','=',$user->id]]);
+            if ($qry0->count() > 0){
+                $defaultAlbum = $qry0->first();
+            }else{
+                $defaultAlbum = Album::create(['name'=>'uploads',
+                    'name_canonical'=> 'uploads',
+                    'user_id'=>$user->id,
+                    'post_id'=>0]);
+            }
+            $album = Album::create(['name'=>'auto_gen_'.time(),
+                'name_canonical'=> str_replace(' ','_',$album_name),
+                'auto_generated'=>true,
+                'user_id'=>$user->id,
+                'parent_id'=>$defaultAlbum->id,
+                'post_id'=>$post->id]);
+            return ['album'=>$album, 'post'=>$post,'post_created'=>true,'album_created'=>true];
+        }
+
+        //Recherche si l'album existe deja
+        $qry = Album::where([['user_id','=',$user->id],['name','=',$album_name]]);
+        if($qry->count() > 0){
+            $album = $qry->first();
+            $qry1 = Post::where('id',$album->post_id);
+            $post_created = false;
+            if ($qry1->count() > 0){
+                $post = $qry1->first();
+            }else{
+                $post = Post::create(['titre'=>$post_title,
+                    'titre_canonical'=>str_replace(" ","_",$post_title),
+                    'tags'=>$post_tags,'privacy'=>$post_privacy, 'text'=>$post_text,
+                    'type'=>'post', 'parent_id'=>0,
+                    'user_id'=>$user->id]);
+                $album->post_id = $post->id;
+                $album->save();
+                $post_created = true;
+            }
+            return ['album'=>$album, 'post'=>$post,'post_created'=>$post_created,'album_created'=>false];
+        }
+        /*Sinon on create un nouvel album et un nouveau post */
+
+        $post = Post::create(['titre'=>$post_title,
+            'titre_canonical'=>str_replace(" ","_",$post_title),
+            'tags'=>$post_tags,'privacy'=>$post_privacy, 'text'=>$post_text,
+            'type'=>'post', 'parent_id'=>0,
+            'user_id'=>$user->id]);
+        $album = Album::create(['name'=>$album_name,
+        'name_canonical'=> str_replace(' ','_',$album_name),
+            'user_id'=>$user->id,
+            'post_id'=>$post->id]);
+        return ['album'=>$album, 'post'=>$post,'post_created'=>true,'album_created'=>true];
+    }
+}
+
+

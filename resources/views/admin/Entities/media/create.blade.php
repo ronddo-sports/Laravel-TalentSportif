@@ -36,7 +36,7 @@
 
                     {!! Form::open(['url' => '/admin/media', 'class' => 'form-horizontal', 'files' => true]) !!}
 
-                    @include ('admin.media.form')
+                    @include ('admin.Entities.media.form')
 
                     {!! Form::close() !!}
 

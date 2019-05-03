@@ -38,11 +38,12 @@ class RegisterApiController extends Controller
 //dd('ici creat');
 
         $default_role = Role::where('name','client')->first();
-
+        $canonical = str_replace(' ','_',strtolower($data['username'])).'_'.str_replace(' ','_',strtolower($data['pseudo']));
         $user = User::create([
             'username' => $data['username'],
-            'username_canonical' => str_replace(' ','_',$data['username']).'_'.str_replace(' ','_',$data['pseudo']),
+            'username_canonical' => $canonical,
             'email' => $data['email'],
+            'api_token'=> $canonical.str_random(10),
             'discipline' => $data['discipline'],
             'pseudo' => $data['pseudo'],
             'user_status_id' => $data['status_id'],
