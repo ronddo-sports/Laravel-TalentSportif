@@ -7,6 +7,7 @@ use App\Model\Album;
 use App\Model\Medium;
 use App\Model\Post;
 use App\Model\User;
+use Illuminate\Support\Facades\Auth;
 
 if (! function_exists('app_name')) {
     /**
@@ -215,7 +216,7 @@ if (! function_exists('findOrCreateAlbum')) {
         //Si c'est l'album par defaut
         if (strtolower($album_name) == 'uploads'){
             //On create un nouveau post pour les nouvelles tofs..
-            $post = Post::create(['titre'=>$post_title,
+            $post = Post::create(['titre'=>$post_title,'token'=>str_random(12),
                 'titre_canonical'=>str_replace(" ","_",$post_title),
                 'tags'=>$post_tags,'privacy'=>$post_privacy, 'text'=>$post_text,
                 'type'=>'post', 'parent_id'=>0,
@@ -248,7 +249,7 @@ if (! function_exists('findOrCreateAlbum')) {
             if ($qry1->count() > 0){
                 $post = $qry1->first();
             }else{
-                $post = Post::create(['titre'=>$post_title,
+                $post = Post::create(['titre'=>$post_title,'token'=>str_random(12),
                     'titre_canonical'=>str_replace(" ","_",$post_title),
                     'tags'=>$post_tags,'privacy'=>$post_privacy, 'text'=>$post_text,
                     'type'=>'post', 'parent_id'=>0,
@@ -261,7 +262,7 @@ if (! function_exists('findOrCreateAlbum')) {
         }
         /*Sinon on create un nouvel album et un nouveau post */
 
-        $post = Post::create(['titre'=>$post_title,
+        $post = Post::create(['titre'=>$post_title,'token'=>str_random(12),
             'titre_canonical'=>str_replace(" ","_",$post_title),
             'tags'=>$post_tags,'privacy'=>$post_privacy, 'text'=>$post_text,
             'type'=>'post', 'parent_id'=>0,
@@ -271,6 +272,34 @@ if (! function_exists('findOrCreateAlbum')) {
             'user_id'=>$user->id,
             'post_id'=>$post->id]);
         return ['album'=>$album, 'post'=>$post,'post_created'=>true,'album_created'=>true];
+    }
+}
+
+if (! function_exists('findOrCreatePostFromMedia')) {
+
+
+    function findOrCreatePostFromMedia($medium)
+    {
+
+        //Recherche si l'album existe deja
+        $qry = Post::where('id','=',$medium->post_id);
+        if ($qry->count()){
+            $post = $qry->first();
+            $post->cartons = getPostCartons($post->id);
+            $post->views = \App\Model\Vue::where('post_id',$post->id)->count();
+            $post->owner = \App\Model\User::find($post->user_id);
+        }else{
+            $post = Post::create(['privacy'=> 'public','token'=>str_random(12),
+                'type'=>'post', 'parent_id'=>0,
+                'user_id'=>$medium->user_id]);
+            $medium->post_id = $post->id;
+            $medium->save();
+            $post->cartons = getPostCartons($post->id, true);
+            $post->views = 0;
+            $post->owner = User::find($medium->user_id);
+        }
+
+        return $post;
     }
 }
 

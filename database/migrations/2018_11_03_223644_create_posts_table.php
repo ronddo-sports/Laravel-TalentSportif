@@ -17,6 +17,7 @@ class CreatePostsTable extends Migration
             $table->string('titre')->nullable();
             $table->string('titre_canonical')->nullable();
             $table->string('privacy')->nullable();
+            $table->string('token')->unique();
             $table->text('text')->nullable();
             $table->string('lieu')->nullable();
             $table->string('tags')->nullable();

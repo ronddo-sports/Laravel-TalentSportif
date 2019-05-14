@@ -17,6 +17,7 @@ class CreateVuesTable extends Migration
             $table->integer('post_id')->unsigned();
             $table->integer('view_number')->default(0);
             $table->integer('user_id')->unsigned();
+
             $table->foreign('post_id')->references('id')->on('users');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

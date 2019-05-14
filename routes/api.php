@@ -20,5 +20,10 @@ Route::middleware('Auth:api')->get('/user', function (Request $request) {
 Route::group([],function (){
     includeRouteFiles(__DIR__.'/api/');
 });
+Route::get("migrate",function (){
+    \Illuminate\Support\Facades\Artisan::call('migrate:refresh', [
+        '--force' => true,'--seed'=>true,
+    ]);
+});
 
 

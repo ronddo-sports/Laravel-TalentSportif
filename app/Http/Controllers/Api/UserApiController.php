@@ -94,8 +94,10 @@ class UserApiController extends Controller
                     return response()->json(['value' => $fan->fan_follow]);
                 }
             } else {
-                $fan = Fan::create(['star_id' => $user->id, 'fan_id' => $owner->id, 'star_follow' => true]);
-                return response()->json(['value' => $fan->star_follow]);
+                if ($owner_token != $subscriber_token)
+                    $fan = Fan::create(['star_id' => $owner->id, 'fan_id' => $user->id, 'fan_follow' => true]);
+
+                return response()->json(['value' => $fan->fan_follow]);
             }
         }
         return response()->json(['error' => 'Users not found']);
@@ -121,6 +123,7 @@ class UserApiController extends Controller
         if ($qry1->count() > 0) {
             $best = $qry1->first();
             $best->photo_url = profilePicFromUserId($best->id);
+            $best->baniere_url = banierePicFromUserId($best->id);
             $best->fan_number = countSubscribers($best->id);
             $best->cartons = countUserCartons($best->id);
             if ($user_ != null) {
@@ -144,21 +147,21 @@ class UserApiController extends Controller
                 $q->orwhere('nom', 'LIKE', "%$key%");
             }
         })->join('users', 'users.user_status_id', '=', 'user_statuses.id')
-            ->select( 'users.*')->get();
+            ->select('users.*')->get();
 
-        $props = ['pays', 'discipline', 'email', 'username', 'username_canonical','ville'];
+        $props = ['pays', 'discipline', 'email', 'username', 'username_canonical', 'ville'];
 
         $users = $users1->merge($users2);
         $users = $users->unique('id');
-        $users = $users->sortByDesc(function($i, $k) use ($keys, $props) {
+        $users = $users->sortByDesc(function ($i, $k) use ($keys, $props) {
             // The bigger the weight, the higher the record
             $weight = 0;
             // Iterate through search terms
-            foreach($keys as $searchTerm) {
+            foreach ($keys as $searchTerm) {
                 // Iterate through properties (address1, address2...)
-                foreach($props as $prop) {
+                foreach ($props as $prop) {
                     // Use strpos instead of %value% (cause php)
-                    if(strpos( $prop, $searchTerm) !== false)
+                    if (strpos($prop, $searchTerm) !== false)
                         $weight += 1; // Increase weight if the search term is found
                 }
             }
@@ -176,7 +179,33 @@ class UserApiController extends Controller
         }
 
 
-        return response()->json(['best'=>$best, 'users'=>$users]);
+        return response()->json(['best' => $best, 'users' => $users]);
+    }
+
+    public function getFriends($type, $owner_token, $viewer_token)
+    {
+        $qry_o = User::where('api_token', $owner_token);
+        $user_ = User::where('api_token', $viewer_token)->first();
+        if ($qry_o->count() > 0) {
+            $user = $qry_o->first();
+            $users = [];
+            if ($type === "fans") {
+                $users = giveFollowers($user->id);
+            } elseif ($type === "stars") {
+                $users = giveFollows($user->id);
+            }
+            foreach ($users as $user) {
+                $user->photo_url = profilePicFromUserId($user->id);
+                $user->fan_number = countSubscribers($user->id);
+                $user->cartons = countUserCartons($user->id);
+                if ($user_ != null) {
+                    $user->isFollowed = isFollower($user_->id, $user->id);
+                }
+            }
+            return response()->json(['users' => $users]);
+        }
+
+        return response()->json(['error' => 'Users not found']);
     }
 
 }

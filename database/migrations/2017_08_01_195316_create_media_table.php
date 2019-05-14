@@ -19,6 +19,7 @@ class CreateMediaTable extends Migration
             $table->string('url')->nullable();
             $table->string('thumb_url')->nullable();
             $table->string('source')->nullable();
+            $table->string('vid_length')->nullable();
             $table->boolean('actif')->default(true);
             $table->integer('user_id')->unsigned();
             $table->integer('album_id')->unsigned()->default(0);

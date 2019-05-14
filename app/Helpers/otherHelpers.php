@@ -6,6 +6,7 @@
  * Time: 00:54
  */
 
+use App\Model\Carton;
 use App\Model\Conversation;
 use App\Model\Fan;
 use App\Model\Message;
@@ -29,16 +30,15 @@ if (!function_exists('giveFollowers')) {
             ->leftJoin('users', function ($join) {
                 $join->on('fans.fan_id', '=', 'users.id');
             })
-            ->select('users.*', 'fans.star_block as blocked', 'fans.star_privacy as privacy')
+            ->select('users.*', 'fans.star_block as blocked')
             ->get();
         $fan = Fan::where([['fan_id', $fan_id], ['star_follow', true]])
             ->leftJoin('users', function ($join) {
                 $join->on('fans.star_id', '=', 'users.id');
             })
-            ->select('users.*', 'fans.fan_block as blocked', 'fans.fan_privacy as privacy', 'fans.created_at')
+            ->select('users.*', 'fans.fan_block as blocked', 'fans.created_at as ca')
             ->get();
         $followers = $star->merge($fan);
-
 
         return $followers;
     }
@@ -57,13 +57,13 @@ if (!function_exists('giveFollows')) {
             ->leftJoin('users', function ($join) {
                 $join->on('fans.fan_id', '=', 'users.id');
             })
-            ->select('users.*', 'fans.star_block as blocked', 'fans.star_privacy as privacy')
+            ->select('users.*', 'fans.star_block as blocked')
             ->get();
         $fan = Fan::where([['fan_id', $id], ['fan_follow', true]])
             ->leftJoin('users', function ($join) {
                 $join->on('fans.star_id', '=', 'users.id');
             })
-            ->select('users.*', 'fans.fan_block as blocked', 'fans.fan_privacy as privacy', 'fans.created_at')
+            ->select('users.*', 'fans.fan_block as blocked', 'fans.created_at as ca')
             ->get();
         $friends = $star->merge($fan);
         return $friends;
@@ -107,6 +107,24 @@ if (!function_exists('countUserCartons')) {
         $qry = \App\Model\Post::where('posts.user_id',$uid)
             ->leftJoin('cartons','posts.id','=','cartons.post_id');
        return $qry->count();
+    }
+}
+
+if (!function_exists('getPostCartons')) {
+
+    /**
+     * Counts the number of friends give bythe give friends method
+     * @param $folder
+     */
+    function getPostCartons($post_id, $return_zero = false)
+    {
+        $cartons = ['vert'=>0,'rouge'=>0,'jaune'=>0];
+        if (!$return_zero){
+            $cartons['rouge'] = Carton::where([['post_id','=',$post_id],['couleur','=','0']])->count();
+            $cartons['jaune'] = Carton::where([['post_id','=',$post_id],['couleur','=','1']])->count();
+            $cartons['vert'] = Carton::where('post_id','=',$post_id)->where('couleur','=','2')->count();
+        }
+        return $cartons;
     }
 }
 

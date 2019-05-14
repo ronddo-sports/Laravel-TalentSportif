@@ -13,7 +13,11 @@ Route::group([
 
     Route::post('send_temps', 'MediaController@registerTempImg');
     Route::get('home/videos','MediaController@index');
-    Route::get('/postanduser/{media_id}/{viewer_id?}','MediaController@getPostAndUser');
+    Route::get('/postanduser/{media_type}/{post_token}/{viewer_token?}','MediaController@getPostAndUser');
+    Route::get('/moreposts/{media_type}/{post_token}/{viewer_token?}','MediaController@getMorePosts');
     Route::get('/get/albums/{token}','MediaController@getUserAlbums');
-    Route::post('/create/post','MediaController@createPost');
+    Route::get('/get/user/gallery/{token}','MediaController@userGallery');
+    Route::post('/upload/photo','MediaController@uploadPhoto');
+    Route::post('/upload/video','MediaController@uploadVideo');
+    Route::post('/test/upload','MediaController@testUpload');
 });

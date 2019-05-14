@@ -164,7 +164,6 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Cmgmyr\Messenger\MessengerServiceProvider::class,
         Dawson\Youtube\YoutubeServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,

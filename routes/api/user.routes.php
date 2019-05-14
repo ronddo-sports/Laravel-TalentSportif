@@ -12,6 +12,7 @@ Route::group([
 
     Route::post('one/{token}', 'UserApiController@getByToken');
     Route::get('/top/user/{token?}', 'UserApiController@getTopUsers');
+    Route::get('/get/{type}/{owner_token}/{viewer_token?}', 'UserApiController@getFriends');
     Route::get('/top/category', 'UserApiController@getTopCategories');
     Route::post('/search', 'UserApiController@searchUsers');
     Route::post('logout', 'AuthController@logout');

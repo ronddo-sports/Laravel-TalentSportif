@@ -18,6 +18,7 @@ Route::get('/jinkoloi', function () {
     echo ${$a};
 })->name('dashboard');
 
+
 Route::group(['middleware' => 'authentic', 'roles' => ['admin']], function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
@@ -34,6 +35,11 @@ Route::group(['middleware' => 'authentic', 'roles' => ['admin']], function () {
 Route::get('/img/{path}', function(\League\Glide\Server $server, $path) {
     $server->outputImage($path,$_GET);
     exit;
+})->where('path', '.+');
+
+Route::get('/play/{path}', function($path) {
+    //return storage_path('/app/video/'.$path);
+    return response()->download(storage_path('/app/video/'.$path));
 })->where('path', '.+');
 //fin glide
 
