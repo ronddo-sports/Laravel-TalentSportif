@@ -25,7 +25,6 @@ Route::group(['middleware' => 'authentic', 'roles' => ['admin']], function () {
     Route::get('/', 'MainController@welcome');
 });
 Route::group(['middleware' => 'authentic', 'roles' => ['admin']], function () {
-
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/', 'MainController@welcome');
 });
